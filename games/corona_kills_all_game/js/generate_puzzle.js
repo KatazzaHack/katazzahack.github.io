@@ -101,6 +101,10 @@ function Puzzle(graph, lifes, size) {
   this.size = size;
 }
 
+
+// n - size of the puzzle
+// g_type one of "tree", "clique", "circle", "random"
+// l_type one of "equal", "onebig", "random"
 function generate_puzzle(n, g_type, l_type) {
   let graph_f;
   switch(g_type) {
@@ -132,4 +136,27 @@ function generate_puzzle(n, g_type, l_type) {
   return new Puzzle(graph_f(n), lifes_f(n), n);
 }
 
+// returns puzzle with budget field and graph representation as list of edges.
+function solve_puzzle(puzzle) {
+  let edges_cnt = 0;
+  for (let i = 0; i < puzzle.size; i++) {
+    for (let j = 0; j < puzzle.size; j++) {
+      edges_cnt += puzzle.graph[i][j];
+    }
+  }
+  edges_cnt = edges_cnt / 2;
+  var edges = new Array(edges_cnt);
+  edges_cnt = edges_cnt - 1;
+  for (let i = 0; i < puzzle.size; i++) {
+    for (let j = i + 1; j < puzzle.size; j++) {
+      if (puzzle.graph[i][j] === 1) {
+        edges[edges_cnt] = [i, j];
+        edges_cnt = edges_cnt - 1;
+      }
+    }
+  }
+  puzzle.graph = edges;
+  return puzzle;
+}
 var x = generate_puzzle(4, "tree", "onebig");
+var y= solve_puzzle(x)
