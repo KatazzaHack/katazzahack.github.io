@@ -34,11 +34,13 @@ function generate_tree_puzzle(n) {
     }
     if (Rank[p_a] < Rank[p_b]) {
       [p_a, p_b] = [p_b, p_a]
-      Parent[p_b] = p_a;
-      if (Rank[p_a] === Rank[p_b]) {
-        Rank[p_a] = Rank[p_a] + 1;
-      }
     }
+    Parent[p_b] = p_a;
+    if (Rank[p_a] === Rank[p_b]) {
+      Rank[p_a] = Rank[p_a] + 1;
+    }
+    gr[a][b] = 1;
+    gr[b][a] = 1;
     return 1;
   }
 
@@ -48,6 +50,7 @@ function generate_tree_puzzle(n) {
     let b_node = Math.floor(Math.random() * n);
     cnt = cnt + union_vertex(a_node, b_node);
   }
+  return gr;
 }
 
 function generate_circle_puzzle(n) {
@@ -74,19 +77,20 @@ function generate_random_puzzle(n) {
 }
 
 function generate_equal_lifes(n) {
-  return new Array(n).fill(Math.floor(Math.random() * 3) + 1);
+  return new Array(n).fill(Math.floor((Math.random() * 3) + 1));
 }
 
 
 function generate_one_big_lifes(n) {
   let a = new Array(n).fill(1);
   a[Math.floor(Math.random() * n)] = 3;
+  return a;
 }
 
 function generate_random_lifes(n) {
   let a = new Array(n).fill(0);
   for (let i = 0; i < n; i++) {
-    a[i] = Math.floor(Math.random() * 3) + 1);
+    a[i] = Math.floor((Math.random() * 3) + 1);
   }
   return a;
 }
@@ -128,4 +132,4 @@ function generate_puzzle(n, g_type, l_type) {
   return new Puzzle(graph_f(n), lifes_f(n), n);
 }
 
-var x = generate_puzzle(4, "clique", "equal");
+var x = generate_puzzle(4, "tree", "onebig");
