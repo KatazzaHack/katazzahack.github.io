@@ -2,37 +2,35 @@
 <html lang="en">
 <html>
 <head>
-    <meta charset="utf-8">
-    <title>Corona kills everybody</title>
-    <link href="style/main.css" rel="stylesheet" type="text/css">
-    <link rel="shortcut icon" href="favicon.ico">
-    <meta property="og:url"           content="https://katazzahack.github.io/games/corona_kills_all_game/index.html" />
-    <meta property="og:type"          content="Webpage" />
-    <meta property="og:title"         content="Corona loves everybody" />
-    <meta property="og:description"   content="Fun game in that corona time" />
-    <meta property="og:image"         content="favicon.ico" />
+  <meta charset="utf-8">
+  <title>Corona kills everybody</title>
+  <link href="style/main.css" rel="stylesheet" type="text/css">
+  <link rel="shortcut icon" href="favicon.ico">
+  <meta property="og:url"           content="https://katazzahack.github.io/games/corona_kills_all_game/index.html" />
+  <meta property="og:type"          content="Webpage" />
+  <meta property="og:title"         content="Corona loves everybody" />
+  <meta property="og:description"   content="Fun game in that corona time" />
+  <meta property="og:image"         content="favicon.ico" />
 </head>
 <body>
-    <a> Future corona game </a>
+  <a> Future corona game </a>
 
+  <!-- Load Facebook SDK for JavaScript -->
+  <div id="fb-root"></div>
 
+  <!-- Your share button code -->
+  <div class="fb-share-button" 
+    data-href="https://katazzahack.github.io/games/corona_kills_all_game/index.html"
+    data-layout="button_count">
+  </div>
 
-    <!-- Load Facebook SDK for JavaScript -->
-    <div id="fb-root"></div>
-
-    <!-- Your share button code -->
-    <div class="fb-share-button"
-        data-href="https://katazzahack.github.io/games/corona_kills_all_game/index.html"
-        data-layout="button_count">
-    </div>
-
-    <script>(function(d, s, id) {
+  <script>(function(d, s, id) {
           var js, fjs = d.getElementsByTagName(s)[0];
           if (d.getElementById(id)) return;
           js = d.createElement(s); js.id = id;
           js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
           fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
-    </script>
+  </script>
 </body>
 </html>
