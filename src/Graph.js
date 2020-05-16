@@ -183,9 +183,9 @@ Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
   this.container.addListener("startGame", this.start);
-  //this.container.addListener("setzero", this.setzero);
-  //this.container.addListener("setone", this.setone);
-  //this.container.addListener("settwo", this.settwo);
+  this.container.addListener("setzero", this.setzero);
+  this.container.addListener("setone", this.setone);
+  this.container.addListener("settwo", this.settwo);
 }
 
 Graph.prototype.prepare = function () {
@@ -196,19 +196,16 @@ Graph.prototype.start = function () {
   q.draw_network();
   q.init_listeners();
 }
-/**
+
 Graph.prototype.setzero = function () {
-  q.draw_network();
-  q.init_listeners();
+  q.set_click_type(0);
 }
-Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
+Graph.prototype.setone = function () {
+  q.set_click_type(1);
 }
-Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
-}*/
+Graph.prototype.settwo = function () {
+  q.set_click_type(2);
+}
 q.prepare();
 //q.start();
 
