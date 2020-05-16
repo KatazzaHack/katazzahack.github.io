@@ -1,13 +1,13 @@
 import React from 'react';
+import ReactDOM from 'react-dom';
 import './Buttons.css';
 
 class Buttons extends React.Component {
 	render() {
 		return (<div>
-			Lol
-			//{this.renderButton(0)} 
-			//{this.renderButton(1)}
-			//{this.renderButton(2)}
+			{this.renderButton(0)} 
+			{this.renderButton(1)}
+			{this.renderButton(2)}
 		</div>);
 	}
 
@@ -33,5 +33,4 @@ class Button extends React.Component {
 	}
 }
 
-const domContainer = document.querySelector('#buttons');
-ReactDOM.render(React.createElement(Buttons), domContainer);
+export default Buttons;
