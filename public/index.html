@@ -3,15 +3,16 @@
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <title>Corona kills everybody</title>
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo.png" />
+    <title>Corona Infections</title>
     
+		<!-- TODO: Figure out what for -->
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="Web site created using create-react-app"
     />
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
 		
 		<!-- Required for Facebook share button -->
@@ -32,34 +33,57 @@
     <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
       <header class="masthead mb-auto">
         <div class="inner">
-          <h1 class="masthead-brand">Corona Infects Everybody</h1>
+          <h1 class="masthead-brand">Corona Infections</h1>
         </div>
       </header>
 
       <main role="main" class="inner cover">
-        <div class="container">
-          <h3 class="cover-heading">Stats</h3>
-          <div id="user_stats"></div>
-        </div>
         <p class="lead"> 
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Rules </a>
         </p>
         <div class="collapse" id="collapseExample">
             Put your rules here.
         </div>
-          
-        <div id="game-container"> </div>
+         
+				<div id="content" class="container">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" id="stats_during_game"> Stats </a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+               <li>
+                  <div id="buttons" class="container"> Your Buttons </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
+        	<div id="game-container" class="container"> 
+					</div>
+				</div>
       </main>
 
       <footer class="mastfoot mt-auto">
         <div class="inner">
           <p>Share us:</p>
-            <div id="fb-root"></div>
-            <!-- Your share button code -->
-            <div class="fb-share-button" 
-                data-href="https://katazzahack.github.io"
-                data-layout="button_count">
+          <div class="container">
+            <div class="row">
+              <div class="col-sm">
+                <div id="fb-root"></div>
+                <!-- Your share button code -->
+                <div class="fb-share-button"
+                  data-href="https://katazzahack.github.io"
+                  data-layout="button_count">
+                </div>
+              </div>
+              <div class="col-sm">
+                <script async src="https://telegram.org/js/telegram-widget.js?8" data-telegram-share-url="https://katazzahack.github.io" data-comment="Fun game in that corona time"></script>
+              </div>
+              <div class="col-sm">
+                <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a><script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+              </div>
             </div>
+          </div>
         </div>
       </footer>
     </div>
