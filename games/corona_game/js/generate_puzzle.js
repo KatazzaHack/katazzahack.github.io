@@ -135,7 +135,7 @@ function generate_puzzle(n, g_type, l_type) {
     lifes_f = generate_random_lifes;
     break;
   }
-  return new Puzzle(graph_f(n), lifes_f(n), n);
+  return solve_puzzle(new Puzzle(graph_f(n), lifes_f(n), n));
 }
 
 function calculate_budget(puzzle) {
@@ -170,5 +170,3 @@ function solve_puzzle(puzzle) {
   puzzle.budget = budget
   return puzzle;
 }
-var x = generate_puzzle(4, "tree", "onebig");
-var y= solve_puzzle(x)
