@@ -17,7 +17,7 @@ function Graph() {
   this.options = {
     nodes: {
       borderWidth:4,
-      size: 30,
+      size: 50,
       color: {
         border: '#222222',
         background: '#666666'
@@ -55,7 +55,7 @@ Graph.prototype.get_new_network = function () {
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
   let gg = generate_puzzle(n_size, g_type, f_type);
-  this.budget = gg.budget;
+  this.budget = gg.budget * 1.2;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
   var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
@@ -182,6 +182,10 @@ Graph.prototype.redraw_network = function () {
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
+  this.container.addListener("startGame", this.start);
+  //this.container.addListener("setzero", this.setzero);
+  //this.container.addListener("setone", this.setone);
+  //this.container.addListener("settwo", this.settwo);
 }
 
 Graph.prototype.prepare = function () {
@@ -189,12 +193,24 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
-  this.draw_network();
-  this.init_listeners();
+  q.draw_network();
+  q.init_listeners();
 }
-
+/**
+Graph.prototype.setzero = function () {
+  q.draw_network();
+  q.init_listeners();
+}
+Graph.prototype.start = function () {
+  q.draw_network();
+  q.init_listeners();
+}
+Graph.prototype.start = function () {
+  q.draw_network();
+  q.init_listeners();
+}*/
 q.prepare();
-q.start();
+//q.start();
 
 
 
@@ -270,17 +286,7 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = Math.random();
-  if (n < 10) {
-    pr = Math.min(pr, 0.5);
-    pr = Math.max(pr, 0.4);
-  } else if (n < 20) {
-    pr = Math.min(pr, 0.4);
-    pr = Math.max(pr, 0.2);
-  } else {
-    pr = Math.min(pr, 0.15);
-    pr = Math.max(pr, 0.1);
-  }
+  let pr = 3. / float(n);
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
