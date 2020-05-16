@@ -282,6 +282,12 @@ function generate_circle_puzzle(n) {
 
 function generate_random_puzzle(n) {
   let pr = Math.random();
+  if (n < 10) {
+    pr = Math.max(pr, 0.5);
+  } else  {
+    pr = Math.max(pr, 0.4);
+    pr = Math.min(pr, 0.2);
+  }
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
