@@ -1,3 +1,5 @@
+
+// generate clique puzzle
 function generate_clique_puzzle(n) {
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
