@@ -36,9 +36,13 @@ function Game() {
   this.network_size = 0;
   this.network;
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
-  this.take_image = {3: {0: "https://ibb.co/H2TY78Z", 1: "https://ibb.co/bvkxQzq", 2: "https://ibb.co/XXdn2vF"},
-                     2: {0: "https://ibb.co/Bf77gcX", 1: "https://ibb.co/WcbNSX9", 2: "https://ibb.co/fHTTm4p"},
-                     1: {0: "https://ibb.co/bQ1k7rb", 1: "https://ibb.co/s2yshNj", 2: "https://ibb.co/6JgbLND"}};
+  this.take_image = {3: {
+0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask1.png",
+1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask2.png",
+2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask3.png"},
+                     2: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask1.png", 1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask2.png", 2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask3.png"},
+                     1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir1.png", 1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir2.png", 2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir3.png"}};
+
 
 
 }
@@ -53,7 +57,7 @@ Game.prototype.get_new_network = function () {
   }
   for (var i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
-      this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImgae', border: '1', borderWidthSelected: '10'});
+      this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImgae', border: '1', borderWidthSelected: '10', size: 200});
     }
   }
   for (var i = 0; i < edges_got.length; i++) {
