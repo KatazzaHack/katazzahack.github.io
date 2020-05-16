@@ -270,13 +270,24 @@ function generate_circle_puzzle(n) {
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
     gr[i][(i + 1) % n] = 1;
-    gr[(i + 1) % n][i] = 1;
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      gr[i][j] |= gr[j][i];
+      gr[j][i] |= gr[i][j];
+    }
   }
   return gr;
 }
 
 function generate_random_puzzle(n) {
   let pr = Math.random();
+  if (n < 10) {
+    pr = Math.max(pr, 0.5);
+  } else  {
+    pr = Math.max(pr, 0.4);
+    pr = Math.min(pr, 0.2);
+  }
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
