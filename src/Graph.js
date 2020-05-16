@@ -11,11 +11,13 @@ function Graph() {
   this.lifes = new Array([]);
   this.matrix = new Array();
   this.network_size = 0;
+  this.budget = 0;
   this.network;
+  this.prices = [100, 200, 400]
   this.options = {
     nodes: {
       borderWidth:4,
-      size:40,
+      size: 30,
       color: {
         border: '#222222',
         background: '#666666'
@@ -28,7 +30,7 @@ function Graph() {
   };
   this.click_type = 2;
   this.edges_list = new Array();
-  this.nodes_to_remove = new Array();
+  this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
@@ -53,6 +55,7 @@ Graph.prototype.get_new_network = function () {
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
   let gg = generate_puzzle(n_size, g_type, f_type);
+  this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
   var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
@@ -87,6 +90,7 @@ Graph.prototype.draw_network = function () {
   };
 
   this.network = new vis.Network(this.container, data, this.options);
+  document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
 }
 
 Graph.prototype.set_click_type = function (click_type) {
@@ -123,15 +127,16 @@ Graph.prototype.on_double_click = function (event) {
   console.log(nodes_to_decrease);
   q.decrease_life(nodes_to_decrease);
   q.redraw_network();
+  q.budget = q.budget - q.prices[q.click_type];
+  document.getElementById('stats_during_game').text = "Your current budget is:" + q.budget;
+  
 }
 
 Graph.prototype.decrease_life = function (nodes_to_decrease) {
-  this.nodes_to_remove = new Array();
+  this.nodes_to_change = new Array();
   for (let c = 0; c < nodes_to_decrease.length; c++) {
     this.lifes[nodes_to_decrease[c]] = this.lifes[nodes_to_decrease[c]] - 1;
-    if (this.lifes[nodes_to_decrease[c]] == 0) {
-      this.nodes_to_remove.push(nodes_to_decrease[c]);
-    }
+    this.nodes_to_change.push(nodes_to_decrease[c]);
   }
   let new_edges_list = new Array();
   for (let i = 0; i < this.edges_list.length; ++i) {
@@ -158,41 +163,21 @@ Graph.prototype.decrease_life = function (nodes_to_decrease) {
 }
 
 Graph.prototype.redraw_network = function () {
-  this.nodes = new vis.DataSet({});
-  this.edges = new vis.DataSet({});
-  for (let i = 0; i < this.network_size; i++) {
-    if (this.lifes[i] != 0) {
-      this.nodes.add({id: i + 1, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
-      border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
-    }
-  }
-  for (let i = 0; i < this.edges_list.length; i++) {
-    this.edges.add({from: this.edges_list[i][0] + 1, to: this.edges_list[i][1] + 1, color: 'blue'});
-  }
-  var data = {
-    nodes: this.nodes,
-    edges: this.edges
-  };
-  
-  let positions = {}
+
   for (let i = 0; i < this.network_size; ++i) {
-    if (this.lifes[i] != 0) {
-      positions[i] = this.network.getPosition(i + 1);
+    if (this.nodes_to_change.includes(i)) {
+      if (this.lifes[i] == 0) {
+        this.nodes.remove({id:i + 1});
+      } else {
+        this.nodes.update([{id:i + 1, image: this.take_image[this.lifes[i]][this.types[i]], color: this.take_color[this.lifes[i]]}]);
+      }
     }
   }
-  this.network.setData(data);  
-  
-  for (let i = 0; i < this.network_size; ++i) {
-    if (this.lifes[i] != 0) {
-      this.network.moveNode(i + 1, positions[i]["x"],  positions[i]["y"]);
-    }
-  } 
 }
 
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
-  document.getElementById('game-container').addEventListener('attack', this.attack);
 }
 
 Graph.prototype.prepare = function () {
