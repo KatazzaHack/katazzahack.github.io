@@ -108,9 +108,10 @@ Graph.prototype.on_double_click = function (event) {
   var selected_node = event.nodes[0] - 1; // effect +- 1
   if (q.budget < q.prices[q.click_type]) {
     alert("Not enough money");
+    return 1;
   }
   if (!(q.click_type in [0, 1, 2])) {
-    alert("please select a click type");
+    alert("Please select a click type");
     return 1;
   }
   var nodes_to_decrease = new Array();
