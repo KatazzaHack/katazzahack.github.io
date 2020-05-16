@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Content.css';
 import Buttons from './Buttons';
+import Game from './Game';
 
 class Content extends React.Component {
 	constructor(props) {
@@ -11,21 +12,22 @@ class Content extends React.Component {
 
 	render() {
 		return (
-			<nav>
-        <div>
-          <div>
-            <a> Stats </a>
-          </div>
-          <Buttons is_visible={this.is_start}></Buttons>
-        </div>
-      </nav>
-      //<Game is_start={this.is_start} onEnd={() => this.onGameEnd()}></Game>
+			<div>
+				<nav>
+        	<div>
+          	<div>
+            	<a> Stats </a>
+          	</div>
+          	<Buttons is_visible={this.is_start}></Buttons>
+        	</div>
+      	</nav>
+      	<Game is_start={this.is_start} onEnd={() => this.OnGameEnd()}></Game>
+			</div>
 		);
 	}
 
 	onGameEnd() {
-		console.log('game ended');
-		//this.is_start = true;
+		this.is_start = true;
 	}
 }
 
