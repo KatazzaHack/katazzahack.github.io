@@ -28,7 +28,9 @@ class Game extends React.Component {
 
 	startGame() {
 		this.game_is_active = true;
-		// TODO: Add graph.
+		this.container = document.getElementById('game-container');
+		this.event = new Event('startGame');
+		this.container.dispatchEvent(this.event);
 	}
 }
 

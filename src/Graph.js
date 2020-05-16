@@ -442,3 +442,5 @@ function solve_puzzle(puzzle) {
   puzzle.budget = budget
   return puzzle;
 }
+
+export default Graph;
