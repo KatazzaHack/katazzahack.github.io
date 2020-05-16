@@ -1,33 +1,3 @@
-function myFunction(event) {
-  console.log(event);
-}
-
-// create an array with nodes
-var nodes = new vis.DataSet([
-  {id: 0, label: '', color: 'red', shape: 'circle', size: 100},
-  {id: 1, label: '', color: 'green', shape: 'circle', size: 10},
-  {id: 2, label: 'Node 3'},
-  {id: 3, label: 'Node 4'},
-  {id: 4, label: 'Node 5'}
-]);
-
-// create an array with edges
-var edges = new vis.DataSet([
-  {from: 0, to: 4, color: 'green'},
-  {from: 2, to: 4},
-  {from: 2, to: 5},
-  {from: 3, to: 3}
-]);
-
-// create a network
-var container = document.getElementById('mynetwork');
-var data = {
-  nodes: nodes,
-  edges: edges
-};
-var options = {};
-var network = new vis.Network(container, data, options);
-
 function Game() {
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
@@ -37,11 +7,15 @@ function Game() {
   this.network;
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   this.take_image = {3: {
-0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask1.png",
-1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask2.png",
-2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/nomask3.png"},
-                     2: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask1.png", 1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask2.png", 2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/mask3.png"},
-                     1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir1.png", 1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir2.png", 2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics/vir3.png"}};
+0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask1.png",
+1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask2.png",
+2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask3.png"},
+2: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask1.png",
+   1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask2.png",
+   2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask3.png"},
+  1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir1.png",
+1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir2.png",
+2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir3.png"}};
 
 
 
@@ -57,7 +31,8 @@ Game.prototype.get_new_network = function () {
   }
   for (var i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
-      this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImgae', border: '1', borderWidthSelected: '10', size: 200});
+      this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
+      border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
     }
   }
   for (var i = 0; i < edges_got.length; i++) {
@@ -71,7 +46,20 @@ Game.prototype.draw_first_network = function () {
     nodes: this.nodes,
     edges: this.edges
   };
-  var options = {};
+  var options = {
+    nodes: {
+      borderWidth:4,
+      size:40,
+      color: {
+        border: '#222222',
+        background: '#666666'
+      },
+      font:{color:'#eeeeee'}
+    },
+    edges: {
+      color: 'lightgray'
+    }
+  };
   this.network = new vis.Network(container, data, options);
 }
 
