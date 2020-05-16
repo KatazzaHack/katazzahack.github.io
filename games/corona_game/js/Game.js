@@ -3,21 +3,22 @@ function Game() {
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
   this.edges = new vis.DataSet(options);
+  this.list_edges = new Array([]);
   this.lifes = new Array([]);
   this.network_size = 0;
   this.network;
   this.click_type = -1;
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
-  this.take_image = {3: {
-0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask1.png",
-1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask2.png",
-2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask3.png"},
+  this.take_image = {
+3: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask1.png",
+    1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask3.png"},
 2: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask1.png",
-   1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask2.png",
-   2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask3.png"},
-  1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir1.png",
-1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir2.png",
-2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir3.png"}};
+    1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask3.png"},
+1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir1.png",
+    1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir3.png"}};
 
 
 
@@ -89,10 +90,20 @@ Game.prototype.init_listeners = function () {
   this.network.on("doubleClick", this.on_double_click);
 }
 
+Game.prototype.generate_matrix = function () {
+  for (var i = 0; i < this.network_size; ++i) {
+    this.matrix[i] = new Array([]);
+  }
+  for (var i = 0; i < this.edges; ++i) {
+    this.matrix[i] = new Array([]);
+  }
+}
+
 Game.prototype.start = function () {
-  qwe.get_new_network();
-  qwe.draw_first_network();
-  qwe.init_listeners();
+  this.get_new_network();
+  this.draw_first_network();
+  this.init_listeners();
+  this.generate_matrix();
 }
 
 export default = Game;
