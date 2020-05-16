@@ -286,7 +286,7 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = 3. / float(n);
+  let pr = 3. / (n * 1.0);
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
