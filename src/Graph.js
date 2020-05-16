@@ -17,7 +17,7 @@ function Graph() {
   this.options = {
     nodes: {
       borderWidth:4,
-      size: 30,
+      size: 50,
       color: {
         border: '#222222',
         background: '#666666'
@@ -182,6 +182,10 @@ Graph.prototype.redraw_network = function () {
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
+  this.container.addListener("startGame", this.start);
+  //this.container.addListener("setzero", this.setzero);
+  //this.container.addListener("setone", this.setone);
+  //this.container.addListener("settwo", this.settwo);
 }
 
 Graph.prototype.prepare = function () {
@@ -189,12 +193,24 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
-  this.draw_network();
-  this.init_listeners();
+  q.draw_network();
+  q.init_listeners();
 }
-
+/**
+Graph.prototype.setzero = function () {
+  q.draw_network();
+  q.init_listeners();
+}
+Graph.prototype.start = function () {
+  q.draw_network();
+  q.init_listeners();
+}
+Graph.prototype.start = function () {
+  q.draw_network();
+  q.init_listeners();
+}*/
 q.prepare();
-q.start();
+//q.start();
 
 
 
