@@ -11,7 +11,7 @@ class Game extends React.Component {
   render() {
 		if (this.game_is_active) {
 			return (
-    		<div>
+    		<div id="game-container">
 					Game should be located here
     		</div>
   		);
@@ -28,6 +28,7 @@ class Game extends React.Component {
 
 	startGame() {
 		this.game_is_active = true;
+		// TODO: Add graph.
 	}
 }
 
