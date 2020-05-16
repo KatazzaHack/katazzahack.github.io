@@ -37,10 +37,6 @@
       </header>
 
       <main role="main" class="inner cover">
-        <div class="container">
-          <h3 class="cover-heading">Stats</h3>
-          <div id="user_stats"></div>
-        </div>
         <p class="lead"> 
           <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Rules </a>
         </p>
@@ -48,8 +44,19 @@
             Put your rules here.
         </div>
          
-				<div id="content"> 
-					<div id="buttons" class="container"></div>
+				<div id="content" class="container">
+          <nav class="navbar navbar-inverse">
+            <div class="container-fluid">
+              <div class="navbar-header">
+                <a class="navbar-brand" id="stats_during_game"> Stats </a>
+              </div>
+              <ul class="nav navbar-nav navbar-right">
+               <li>
+                  <div id="buttons" class="container"> Your Buttons </div>
+                </li>
+              </ul>
+            </div>
+          </nav>
         	<div id="game-container" class="container"> 
 					</div>
 				</div>
@@ -88,6 +95,6 @@
           fjs.parentNode.insertBefore(js, fjs);
       }(document, 'script', 'facebook-jssdk'));
   </script>
-  <script src="../src/generate_puzzle.js"></script>
+  <script src="./../src/generate_puzzle.js"></script>
   </body>
 </html>
