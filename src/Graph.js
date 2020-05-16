@@ -270,6 +270,7 @@ function generate_circle_puzzle(n) {
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
     gr[i][(i + 1) % n] = 1;
+    gr[(i + 1) % n][i] = 1;
   }
   return gr;
 }
@@ -282,6 +283,7 @@ function generate_random_puzzle(n) {
     for (let j = 0; j < i; j++) {
       if (i !== j && Math.random() < pr) {
         gr[i][j] = 1;
+        gr[j][i] = 1;
       }
     }
   }
@@ -355,7 +357,6 @@ function calculate_budget(puzzle) {
   for (let i = 0; i < puzzle.size; i++) {
     sum = sum + puzzle.lifes[i] * 100;
   }
-  alert(sum);
   var coef = [100, 200, 400];
   for (let iteration = 0; iteration < 10000; iteration++) {
     let ng = JSON.parse(JSON.stringify(puzzle));
