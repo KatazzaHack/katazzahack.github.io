@@ -3,23 +3,23 @@ function Game() {
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
   this.edges = new vis.DataSet(options);
+  this.list_edges = new Array([]);
   this.lifes = new Array([]);
+  this.matrix = new Array();
   this.network_size = 0;
   this.network;
   this.click_type = -1;
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
-  this.take_image = {3: {
-0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask1.png",
-1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask2.png",
-2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/mask3.png"},
-2: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask1.png",
-   1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask2.png",
-   2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/nomask3.png"},
-  1: {0: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir1.png",
-1: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir2.png",
-2: "https://raw.githubusercontent.com/KatazzaHack/KatazzaHack.github.io/development/pics2/vir3.png"}};
-
-
+  this.take_image = {
+3: {0: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/mask1.png",
+    1: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/mask2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/mask3.png"},
+2: {0: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/nomask1.png",
+    1: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/nomask2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/nomask3.png"},
+1: {0: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/vir1.png",
+    1: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/vir2.png",
+    2: "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/development/games/corona_game/pics/vir3.png"}};
 
 }
 
@@ -27,6 +27,7 @@ Game.prototype.get_new_network = function () {
   this.lifes = [1, 1, 2, 0, 1, 1, 1, 2, 3];
   var edges_got = [[1, 3], [1, 4], [0, 2], [1, 5], [7, 4], [1, 8], [7, 8]];
   this.types = new Array();
+  this.matrix = new Array();
   this.network_size = this.lifes.length;
   for (var i = 0; i < this.network_size; ++i) {
     this.types.push(Math.floor(Math.random() * 3)); 
@@ -36,14 +37,29 @@ Game.prototype.get_new_network = function () {
       this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
       border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
     }
+    this.matrix.push(new Array());
   }
   for (var i = 0; i < edges_got.length; i++) {
     this.edges.add({from: edges_got[i][0], to: edges_got[i][1], color: 'blue'});
+    this.matrix[edges_got[i][0]].push(edges_got[i][1]);
+    this.matrix[edges_got[i][1]].push(edges_got[i][0]);
   }
 };
 
-Game.prototype.draw_first_network = function () {
+Game.prototype.draw_network = function () {
   var container = document.getElementById('mynetwork');
+  for (var i = 0; i < this.network_size; i++) {
+    if (this.lifes[i] != 0) {
+      this.nodes.add({id: i, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
+      border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
+    }
+    this.matrix.push(new Array());
+  }
+  for (var i = 0; i < edges_got.length; i++) {
+    this.edges.add({from: edges_got[i][0], to: edges_got[i][1], color: 'blue'});
+    this.matrix[edges_got[i][0]].push(edges_got[i][1]);
+    this.matrix[edges_got[i][1]].push(edges_got[i][0]);
+  }
   var data = {
     nodes: this.nodes,
     edges: this.edges
@@ -90,10 +106,12 @@ Game.prototype.init_listeners = function () {
 }
 
 Game.prototype.start = function () {
-  qwe.get_new_network();
-  qwe.draw_first_network();
-  qwe.init_listeners();
+  this.get_new_network();
+  this.draw_network();
+  this.init_listeners();
 }
+
+// export default = Game;
 
 qwe = new Game();
 qwe.start()

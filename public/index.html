@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
+    <title>Corona kills everybody</title>
+    
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#000000" />
+    <meta
+      name="description"
+      content="Web site created using create-react-app"
+    />
+    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
+    <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
+		
+		<!-- Required for Facebook share button -->
+		<meta property="og:url"           content="https://katazzahack.github.io/games/corona_kills_all_game/index.html" />
+  	<meta property="og:type"          content="Webpage" />
+  	<meta property="og:title"         content="Corona loves everybody" />
+  	<meta property="og:description"   content="Fun game in that corona time" />
+  	<meta property="og:image"         content="favicon.ico" />
+  	
+		<!-- Bootstrap -->
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+  	<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  	<script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+  	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+	</head>
+  <body class="text-center">
+    <div class="cover-container d-flex h-100 p-3 mx-auto flex-column">
+      <header class="masthead mb-auto">
+        <div class="inner">
+          <h1 class="masthead-brand">Corona Infects Everybody</h1>
+        </div>
+      </header>
+
+      <main role="main" class="inner cover">
+        <div class="container">
+          <h3 class="cover-heading">Stats</h3>
+          <div id="user_stats"></div>
+        </div>
+        <p class="lead"> 
+          <a data-toggle="collapse" href="#collapseExample" aria-expanded="false" aria-controls="collapseExample"> Rules </a>
+        </p>
+        <div class="collapse" id="collapseExample">
+            Put your rules here.
+        </div>
+          
+        <div id="game-container"> </div>
+      </main>
+
+      <footer class="mastfoot mt-auto">
+        <div class="inner">
+          <p>Share us:</p>
+            <div id="fb-root"></div>
+            <!-- Your share button code -->
+            <div class="fb-share-button" 
+                data-href="https://katazzahack.github.io/games/corona_kills_all_game/index.html"
+                data-layout="button_count">
+            </div>
+        </div>
+      </footer>
+    </div>
+
+  <script>(function(d, s, id) {
+          var js, fjs = d.getElementsByTagName(s)[0];
+          if (d.getElementById(id)) return;
+          js = d.createElement(s); js.id = id;
+          js.src = "https://connect.facebook.net/en_US/sdk.js#xfbml=1&version=v3.0";
+          fjs.parentNode.insertBefore(js, fjs);
+      }(document, 'script', 'facebook-jssdk'));
+  </script>
+  <script src="../src/generate_puzzle.js"></script>
+  </body>
+</html>
