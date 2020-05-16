@@ -3,7 +3,7 @@
 q = new Graph();
 
 
-function Graph() {
+export function Graph() {
   var options = {};
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
@@ -119,7 +119,9 @@ Graph.prototype.on_double_click = function (event) {
 }
 
 Graph.prototype.decrease_life = function (nodes_to_decrease) {
-  
+  for (let c = 0; c < nodes_to_decrease.length; c++) {
+    lifes[nodes_to_decrease[c]] = 
+  }
 }
 
 Graph.prototype.init_listeners = function () {
@@ -138,6 +140,4 @@ Graph.prototype.start = function () {
 }
 
 q.prepare();
-export default = Graph;
-// q = new Graph();
 
