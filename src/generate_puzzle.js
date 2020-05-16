@@ -227,3 +227,6 @@ function solve_puzzle(puzzle) {
   puzzle.budget = budget
   return puzzle;
 }
+
+var x = generate_puzzle(30, "clique", "random");
+alert(x.budget);
