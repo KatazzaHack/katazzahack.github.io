@@ -47,8 +47,12 @@ function Graph() {
 }
 
 Graph.prototype.get_new_network = function () {
-  this.lifes = [1, 1, 2, 0, 1, 1, 1, 2, 3];
-  var edges_got = [[0, 2], [1, 3], [1, 4], [1, 5] , [1, 8], [4, 7],  [7, 8]];
+  let n_size = Math.floor(Math.random() * 20) + 5;
+  let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
+  let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
+  let gg = generate_puzzle(n_size, g_type, f_type);
+  this.lifes = JSON.parse(JSON.stringify(gg.lifes));
+  var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
   this.types = new Array();
   this.matrix = new Array();
