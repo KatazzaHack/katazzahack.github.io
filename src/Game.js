@@ -9,28 +9,28 @@ class Game extends React.Component {
 	}
 
   render() {
-		if (this.game_is_active) {
-			return (
-    		<div id="game-container">
-					Game should be located here
-    		</div>
-  		);
-		} else {
+		// if (this.game_is_active) {
+		// return (
+    //		<div id="game-container">
+		//		Game should be located here
+   	// 		</div>
+  	//	);
+		// } else {
 			return (
 				<div>
-					<button onClick={this.startGame()}>
+					<button onClick={() => this.startGame()}>
 						Start game
 					</button>
 				</div>
 			);
-		}
+		//}
 	}
 
 	startGame() {
+		console.log('start game');
 		this.game_is_active = true;
 		this.container = document.getElementById('game-container');
-		this.event = new Event('startGame');
-		this.container.dispatchEvent(this.event);
+		this.container.dispatchEvent(new Event('gameStart'));
 	}
 }
 
