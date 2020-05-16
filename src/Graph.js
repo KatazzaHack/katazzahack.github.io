@@ -3,7 +3,7 @@
 q = new Graph();
 
 
-export function Graph() {
+function Graph() {
   var options = {};
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
@@ -12,8 +12,24 @@ export function Graph() {
   this.matrix = new Array();
   this.network_size = 0;
   this.network;
+  this.options = {
+    nodes: {
+      borderWidth:4,
+      size:40,
+      color: {
+        border: '#222222',
+        background: '#666666'
+      },
+      font:{color:'#eeeeee'}
+    },
+    edges: {
+      color: 'lightgray'
+    }
+  };
   this.click_type = 2;
   this.edges_list = new Array();
+  this.nodes_to_remove = new Array();
+  this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
   this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
@@ -50,8 +66,6 @@ Graph.prototype.get_new_network = function () {
 };
 
 Graph.prototype.draw_network = function () {
-  var container = document.getElementById('game-container');
-  
   for (let i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
       this.nodes.add({id: i + 1, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
@@ -65,21 +79,8 @@ Graph.prototype.draw_network = function () {
     nodes: this.nodes,
     edges: this.edges
   };
-  var options = {
-    nodes: {
-      borderWidth:4,
-      size:40,
-      color: {
-        border: '#222222',
-        background: '#666666'
-      },
-      font:{color:'#eeeeee'}
-    },
-    edges: {
-      color: 'lightgray'
-    }
-  };
-  this.network = new vis.Network(container, data, options);
+
+  this.network = new vis.Network(this.container, data, this.options);
 }
 
 Graph.prototype.set_click_type = function (click_type) {
@@ -119,9 +120,55 @@ Graph.prototype.on_double_click = function (event) {
 }
 
 Graph.prototype.decrease_life = function (nodes_to_decrease) {
-  // for (let c = 0; c < nodes_to_decrease.length; c++) {
-    // lifes[nodes_to_decrease[c]] = 
-  // }
+  this.nodes_to_remove = new Array();
+  for (let c = 0; c < nodes_to_decrease.length; c++) {
+    this.lifes[nodes_to_decrease[c]] = this.lifes[nodes_to_decrease[c]] - 1;
+    if (this.lifes[nodes_to_decrease[c]] == 0) {
+      this.nodes_to_remove.push(nodes_to_decrease[c]);
+    }
+  }
+  let new_edges_list = new Array();
+  for (let i = 0; i < this.edges_list.length; ++i) {
+    if ((this.lifes[this.edges_list[i][0]] != 0) && (this.lifes[this.edges_list[i][1]] != 0)) {
+      new_edges_list.push(this.edges_list[i].slice());
+    }
+  }
+  this.edges_list = new Array();
+  for (let c = 0; c < new_edges_list.length; c++) {
+    this.edges_list.push(new_edges_list[c].slice());
+  }
+
+  this.matrix = new Array();
+  for (let i = 0; i < this.network_size; ++i) {
+    this.matrix .push(new Array());
+  }
+  for (let i = 0; i < this.edges_list.length; i++) {
+    if ((this.lifes[this.edges_list[i][0]] != 0) && (this.lifes[this.edges_list[i][1]] != 0)) {
+      this.matrix[this.edges_list[i][0]].push(this.edges_list[i][1]);
+      this.matrix[this.edges_list[i][1]].push(this.edges_list[i][0]);
+    }
+  }
+  
+}
+
+Graph.prototype.redraw_network = function () {
+  this.network.stabilize();
+  this.nodes = new vis.DataSet({});
+  this.edges = new vis.DataSet({});
+  for (let i = 0; i < this.network_size; i++) {
+    if (this.lifes[i] != 0) {
+      this.nodes.add({id: i + 1, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
+      border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
+    }
+  }
+  for (let i = 0; i < this.edges_list.length; i++) {
+    this.edges.add({from: this.edges_list[i][0] + 1, to: this.edges_list[i][1] + 1, color: 'blue'});
+  }
+  var data = {
+    nodes: this.nodes,
+    edges: this.edges
+  };
+  this.network.setData(data);
 }
 
 Graph.prototype.init_listeners = function () {
@@ -140,3 +187,4 @@ Graph.prototype.start = function () {
 }
 
 q.prepare();
+q.start();
