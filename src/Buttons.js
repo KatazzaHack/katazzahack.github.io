@@ -24,7 +24,7 @@ class Button extends React.Component {
 	render() {
 		return (
 			<button 
-				type="button" class="btn" 
+				type="button" class="btn-default" 
 				onClick={() => this.props.onClick()}
 			>
 				Button
