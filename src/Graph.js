@@ -270,17 +270,7 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = Math.random();
-  if (n < 10) {
-    pr = Math.min(pr, 0.5);
-    pr = Math.max(pr, 0.4);
-  } else if (n < 20) {
-    pr = Math.min(pr, 0.4);
-    pr = Math.max(pr, 0.2);
-  } else {
-    pr = Math.min(pr, 0.15);
-    pr = Math.max(pr, 0.1);
-  }
+  let pr = 3. / float(n);
   let gr = new Array(n);
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
