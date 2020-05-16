@@ -1,6 +1,8 @@
 
-
+console.log('Graph.js started');
 q = new Graph();
+document.getElementById('game-container').addEventListener("gameStart", 
+	() => q.start());
 
 
 function Graph() {
@@ -182,7 +184,6 @@ Graph.prototype.redraw_network = function () {
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
-  this.container.addListener("startGame", this.start);
   //this.container.addListener("setzero", this.setzero);
   //this.container.addListener("setone", this.setone);
   //this.container.addListener("settwo", this.settwo);
@@ -193,7 +194,8 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
-  q.draw_network();
+  console.log('Graph.js: I am about to start');
+	q.draw_network();
   q.init_listeners();
 }
 /**
