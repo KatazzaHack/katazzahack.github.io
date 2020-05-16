@@ -43,7 +43,7 @@ Game.prototype.get_new_network = function () {
 };
 
 Game.prototype.draw_first_network = function () {
-  var container = document.getElementById('mynetwork');
+  var container = document.getElementById('game-container');
   var data = {
     nodes: this.nodes,
     edges: this.edges
@@ -95,5 +95,4 @@ Game.prototype.start = function () {
   qwe.init_listeners();
 }
 
-qwe = new Game();
-qwe.start()
+export default = Game;
