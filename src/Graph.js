@@ -181,12 +181,12 @@ Graph.prototype.redraw_network = function () {
     }
   }
   this.network.setData(data);  
-  /**
+  
   for (let i = 0; i < this.network_size; ++i) {
     if (this.lifes[i] != 0) {
-      this.network.moveNode(i + 1, positions[i][0],  positions[i][1]);
+      this.network.moveNode(i + 1, positions[i]["x"],  positions[i]["y"]);
     }
-  } */
+  } 
 }
 
 Graph.prototype.init_listeners = function () {
