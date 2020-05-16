@@ -138,9 +138,18 @@ function generate_puzzle(n, g_type, l_type) {
   return new Puzzle(graph_f(n), lifes_f(n), n);
 }
 
+function calculate_budget(puzzle) {
+  let sum = 0;
+  for (let i = 0; i < puzzle.size; i++) {
+    sum = sum + puzzle.lifes[i] * 100;
+  }
+  return sum
+}
+
 // returns puzzle with budget field and graph representation as list of edges.
 function solve_puzzle(puzzle) {
   let edges_cnt = 0;
+  let budget = calculate_budget(puzzle);
   for (let i = 0; i < puzzle.size; i++) {
     for (let j = 0; j < puzzle.size; j++) {
       edges_cnt += puzzle.graph[i][j];
@@ -158,6 +167,7 @@ function solve_puzzle(puzzle) {
     }
   }
   puzzle.graph = edges;
+  puzzle.budget = budget
   return puzzle;
 }
 var x = generate_puzzle(4, "tree", "onebig");
