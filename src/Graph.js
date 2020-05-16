@@ -256,7 +256,12 @@ function generate_circle_puzzle(n) {
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(0);
     gr[i][(i + 1) % n] = 1;
-    gr[(i + 1) % n][i] = 1;
+  }
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      gr[i][j] |= gr[j][i];
+      gr[j][i] |= gr[i][j];
+    }
   }
   return gr;
 }
