@@ -1,14 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import Game from './Game';
+import Content from './Content';
 import * as serviceWorker from './serviceWorker';
 
 ReactDOM.render(
   <React.StrictMode>
-    <Game />
+    <Content />
   </React.StrictMode>,
-  document.getElementById('game-container')
+  document.getElementById('content')
 );
 
 // If you want your app to work offline and load faster, you can change
