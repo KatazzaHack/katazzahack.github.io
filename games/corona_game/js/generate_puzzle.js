@@ -97,10 +97,12 @@ function generate_random_lifes(n) {
   return a;
 }
 
-function Puzzle(graph, lifes, size) {
+function Puzzle(graph, lifes, size, g_type, l_type) {
   this.graph = graph;
   this.lifes = lifes;
   this.size = size;
+  this.g_type = g_type;
+  this.l_type = l_type;
 }
 
 
@@ -135,7 +137,7 @@ function generate_puzzle(n, g_type, l_type) {
     lifes_f = generate_random_lifes;
     break;
   }
-  return solve_puzzle(new Puzzle(graph_f(n), lifes_f(n), n));
+  return solve_puzzle(new Puzzle(graph_f(n), lifes_f(n), n, g_type, l_type));
 }
 
 function calculate_budget(puzzle) {
@@ -143,7 +145,63 @@ function calculate_budget(puzzle) {
   for (let i = 0; i < puzzle.size; i++) {
     sum = sum + puzzle.lifes[i] * 100;
   }
-  return sum
+  alert(sum);
+  var coef = [100, 200, 400];
+  for (let iteration = 0; iteration < 10000; iteration++) {
+    let ng = JSON.parse(JSON.stringify(puzzle));
+    let cs = 0;
+    let ln = puzzle.size;
+    while (ln > 0) {
+      let life_nodes = Array(ln).fill(0);
+      let pos = 0;
+      for (let i = 0; i < puzzle.size; i++) {
+        if (ng.lifes[i] > 0) {
+          life_nodes[pos] = i;
+          pos++;
+        }
+      }
+      let v = life_nodes[Math.floor(Math.random() * pos)];
+      let action = Math.floor(Math.random() * 3);
+      let to_del = new Set();
+      cs += coef[action];
+      if (action === 0) {
+        to_del.add(v);
+      }
+      if (action === 1) {
+        to_del.add(v)
+        for (let q = 0; q < ng.size; q++) {
+          if (ng.graph[v][q] === 1) {
+            to_del.add(q);
+          }
+        }
+      }
+      if (action === 2) {
+        to_del.add(v);
+        for (let q = 0; q < ng.size; q++) {
+          if (ng.graph[v][q] === 1) {
+            to_del.add(q);
+            for (let w = 0; w < ng.size; w++) {
+              if (ng.graph[q][w] === 1) {
+                to_del.add(w);
+              }
+            }
+          }
+        }
+      }
+      for (let u of to_del) {
+        ng.lifes[u]--;
+        if (ng.lifes[u] === 0) {
+          ln--;
+          for (let t = 0; t < ng.size; t++) {
+            ng.graph[t][u] = 0;
+            ng.graph[u][t] = 0;
+          }
+        }
+      }
+    }
+    sum = Math.min(sum, cs);
+  }
+  return sum;
 }
 
 // returns puzzle with budget field and graph representation as list of edges.
@@ -151,11 +209,10 @@ function solve_puzzle(puzzle) {
   let edges_cnt = 0;
   let budget = calculate_budget(puzzle);
   for (let i = 0; i < puzzle.size; i++) {
-    for (let j = 0; j < puzzle.size; j++) {
+    for (let j = i + 1; j < puzzle.size; j++) {
       edges_cnt += puzzle.graph[i][j];
     }
   }
-  edges_cnt = edges_cnt / 2;
   var edges = new Array(edges_cnt);
   edges_cnt = edges_cnt - 1;
   for (let i = 0; i < puzzle.size; i++) {
@@ -170,3 +227,6 @@ function solve_puzzle(puzzle) {
   puzzle.budget = budget
   return puzzle;
 }
+
+var x = generate_puzzle(30, "clique", "random");
+alert(x.budget);
