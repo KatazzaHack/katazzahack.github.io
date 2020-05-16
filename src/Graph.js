@@ -188,3 +188,4 @@ Graph.prototype.start = function () {
 
 q.prepare();
 q.start();
+generate_puzzle.js
