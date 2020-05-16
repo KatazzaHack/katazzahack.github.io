@@ -1,4 +1,4 @@
-function Game() {
+function Graph() {
   var options = {};
   var data = new vis.DataSet(options);
   this.nodes = new vis.DataSet(options);
@@ -112,4 +112,4 @@ Game.prototype.start = function () {
 }
 
 
-export default = Game;
+export default = Graph;
