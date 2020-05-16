@@ -3,6 +3,10 @@
   "name": "katazzahack.github.io",
   "version": "0.1.0",
   "private": true,
+<<<<<<< HEAD:cie/package.json
+	"homepage": "http://katazzahack.github.io/",
+=======
+>>>>>>> 28d92775efa0ba2760b180a62bdf80fc9aa25068:package.json
   "dependencies": {
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.3.2",
