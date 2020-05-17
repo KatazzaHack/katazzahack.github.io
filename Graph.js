@@ -1,7 +1,7 @@
 
 
 q = new Graph();
-
+document.getElementById('game-container').addEventListener("gameStart", () => q.start());
 
 function Graph() {
   var options = {};
