@@ -1,6 +1,11 @@
 
 
 q = new Graph();
+q.prepare();
+this.container.addEventListener("startGame", {() => this.start()});
+this.container.addEventListener("setzero", {() => this.setzero()});
+this.container.addEventListener("setone", {() => this.setone()});
+this.container.addEventListener("settwo", {() => this.settwo()});
 
 
 function Graph() {
@@ -182,10 +187,7 @@ Graph.prototype.redraw_network = function () {
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("doubleClick", this.on_double_click);
-  this.container.addListener("startGame", this.start);
-  this.container.addListener("setzero", this.setzero);
-  this.container.addListener("setone", this.setone);
-  this.container.addListener("settwo", this.settwo);
+
 }
 
 Graph.prototype.prepare = function () {
@@ -206,7 +208,7 @@ Graph.prototype.setone = function () {
 Graph.prototype.settwo = function () {
   q.set_click_type(2);
 }
-q.prepare();
+
 //q.start();
 
 
