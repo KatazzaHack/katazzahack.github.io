@@ -16,7 +16,7 @@ class Content extends React.Component {
 				<nav>
         	<div>
           	<div>
-            	<a> Stats </a>
+            	<p> Stats </p>
           	</div>
           	<Buttons is_visible={this.is_start}></Buttons>
         	</div>
