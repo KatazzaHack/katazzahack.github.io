@@ -9,6 +9,7 @@ function Graph() {
   this.network;
   this.prices = [100, 200, 400]
   this.options = {
+    autoResize: true,
     nodes: {
       borderWidth:4,
       size: 50,
@@ -100,9 +101,15 @@ Graph.prototype.on_node_selected = function (event) {
   console.log(selected_node);
 }
 
-Graph.prototype.on_this_click = function (event) {
+Graph.prototype.on_click = function (event) {
+  // TODO() remove this after communications with Game will be established
   this.click_type = 2;
+  if (event.nodes.length == 0) {
+    return;
+  }
+
   var selected_node = event.nodes[0] - 1; // effect +- 1
+  console.log("Selected node: " + selected_node);
   if (this.budget < this.prices[this.click_type]) {
     alert("Not enough money");
     return 1;
@@ -164,7 +171,6 @@ Graph.prototype.decrease_life = function (nodes_to_decrease) {
 }
 
 Graph.prototype.redraw_network = function () {
-
   for (let i = 0; i < this.network_size; ++i) {
     if (this.nodes_to_change.includes(i)) {
       if (this.lifes[i] == 0) {
@@ -178,7 +184,7 @@ Graph.prototype.redraw_network = function () {
 
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
-  this.network.on("click", this.on_this_click.bind(this));
+  this.network.on("click", this.on_click.bind(this));
 }
 
 Graph.prototype.prepare = function () {
