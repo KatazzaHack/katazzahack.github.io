@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import GameWrapper from './GameWrapper';
 import Header from './Header';
+import Footer from './Footer';
 import * as serviceWorker from './serviceWorker';
 
 // Importing the Bootstrap CSS
@@ -11,6 +12,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Header />
     <GameWrapper />
+    <Footer />
   </React.StrictMode>,
   document.getElementById('content')
 );
