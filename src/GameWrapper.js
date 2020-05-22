@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
 import Game from './Game';
-import Buttons from './Buttons';
+import ClickTypeButtons from './ClickTypeButtons';
 
 class GameWrapper extends React.Component {
 	constructor(props) {
@@ -28,7 +28,7 @@ class GameWrapper extends React.Component {
             	<p> Stats </p>
         	</div>
 					<div>
-						<Buttons></Buttons>
+						<ClickTypeButtons/>
 					</div>
       	</nav>
 				{game_content}

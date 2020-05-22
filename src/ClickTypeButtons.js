@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
 
-class Buttons extends React.Component {
+class ClickTypeButtons extends React.Component {
 	render() {
 		return (<div>
 			{this.renderButton(0)} 
@@ -23,7 +23,7 @@ class ClickTypeButton extends React.Component {
 	render() {
 		return (
 			<button 
-				type="button" class="btn-default" 
+				type="button" 
 				onClick={() => this.props.onClick()}
 			>
 				Button with click type
@@ -32,4 +32,4 @@ class ClickTypeButton extends React.Component {
 	}
 }
 
-export default Buttons;
+export default ClickTypeButtons;
