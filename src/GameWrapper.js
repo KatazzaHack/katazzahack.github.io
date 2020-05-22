@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
 import Game from './Game';
 
-class Content extends React.Component {
+class GameWrapper extends React.Component {
 	constructor(props) {
 		super(props);
 		this.is_start = true;
@@ -32,6 +32,6 @@ class Content extends React.Component {
 }
 
 const domContainer = document.querySelector('#content');
-ReactDOM.render(React.createElement(Content), domContainer);
+ReactDOM.render(React.createElement(GameWrapper), domContainer);
 
-export default Content;
+export default GameWrapper;
