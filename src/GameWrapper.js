@@ -24,12 +24,9 @@ class GameWrapper extends React.Component {
 		return (
 			<div>
 				<nav>
-        	<div>
-            	<p> Stats </p>
-        	</div>
-					<div>
-						<ClickTypeButtons/>
-					</div>
+        	<p> Stats </p>
+					<p> Current budget </p>
+					<ClickTypeButtons/>
       	</nav>
 				{game_content}
 			</div>
