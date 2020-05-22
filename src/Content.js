@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './Content.css';
-import Buttons from './Buttons';
+import Button from 'react-bootstrap/Button';
 import Game from './Game';
 
 class Content extends React.Component {
@@ -18,7 +17,7 @@ class Content extends React.Component {
           	<div>
             	<p> Stats </p>
           	</div>
-          	<Buttons is_visible={this.is_start}></Buttons>
+          	<Button is_visible={this.is_start}></Button>
         	</div>
       	</nav>
       	<Game is_start={this.is_start} onEnd={() => this.OnGameEnd()}></Game>

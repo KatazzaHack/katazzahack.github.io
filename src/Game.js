@@ -1,5 +1,6 @@
 import React from 'react';
 import './Game.css';
+import Button from 'react-bootstrap/Button';
 
 class Game extends React.Component {
 	constructor(props)	{
@@ -18,9 +19,9 @@ class Game extends React.Component {
 		// } else {
 			return (
 				<div>
-					<button onClick={() => this.startGame()}>
+					<Button onClick={() => this.startGame()}>
 						Start game
-					</button>
+					</Button>
 				</div>
 			);
 		//}
