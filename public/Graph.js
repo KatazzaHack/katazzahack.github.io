@@ -1,13 +1,9 @@
-
-
-q = new Graph();
-
+q  =new Graph();
 
 function Graph() {
-  var options = {};
-  var data = new vis.DataSet(options);
-  this.nodes = new vis.DataSet(options);
-  this.edges = new vis.DataSet(options);
+  var data = new vis.DataSet({});
+  this.nodes = new vis.DataSet({});
+  this.edges = new vis.DataSet({});
   this.lifes = new Array([]);
   this.matrix = new Array();
   this.network_size = 0;
@@ -26,15 +22,19 @@ function Graph() {
     },
     edges: {
       color: 'lightgray'
+    },
+    interaction: {
+      dragView: false
     }
   };
-  this.click_type = 2;
+  this.click_type = -1;
   this.edges_list = new Array();
   this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
-  this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
+  // this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
+  this.img_dir = "public/source/images/";
   this.take_image = {
 3: {0: this.img_dir + "mask1.png",
     1: this.img_dir + "mask2.png",
@@ -95,7 +95,7 @@ Graph.prototype.draw_network = function () {
 
 Graph.prototype.set_click_type = function (click_type) {
   this.click_type = click_type;
-  q.click_type = click_type;
+  // q.click_type = click_type;
 }
 
 Graph.prototype.on_node_selected = function (event) {
@@ -104,7 +104,7 @@ Graph.prototype.on_node_selected = function (event) {
   console.log(selected_node);
 }
 
-Graph.prototype.on_double_click = function (event) {
+Graph.prototype.on_click = function (event) {
   var selected_node = event.nodes[0] - 1; // effect +- 1
   if (q.budget < q.prices[q.click_type]) {
     alert("Not enough money");
@@ -133,6 +133,38 @@ Graph.prototype.on_double_click = function (event) {
   q.redraw_network();
   q.budget = q.budget - q.prices[q.click_type];
   document.getElementById('stats_during_game').text = "Your current budget is:" + q.budget;
+  
+}
+
+Graph.prototype.on_this_click = function (event) {
+  var selected_node = event.nodes[0] - 1; // effect +- 1
+  if (this.budget < this.prices[this.click_type]) {
+    alert("Not enough money");
+    return 1;
+  }
+  if (!(this.click_type in [0, 1, 2])) {
+    alert("Please select a click type");
+    return 1;
+  }
+  var nodes_to_decrease = new Array();
+  nodes_to_decrease.push(selected_node);
+  for (let counter = 0; counter < this.click_type; ++counter) {
+    let max_cnt = nodes_to_decrease.length;
+    for (let i = 0; i < max_cnt; ++i) {
+      let vertex = nodes_to_decrease[i];
+      for (let j = 0; j < this.matrix[vertex].length; ++j) {
+        let maybe_new = this.matrix[vertex][j];
+        if (!(nodes_to_decrease.includes(maybe_new))) {
+          nodes_to_decrease.push(maybe_new);
+        }
+      }
+    }
+  }
+  console.log(nodes_to_decrease);
+  this.decrease_life(nodes_to_decrease);
+  this.redraw_network();
+  this.budget = this.budget - this.prices[this.click_type];
+  document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
   
 }
 
@@ -181,8 +213,7 @@ Graph.prototype.redraw_network = function () {
 
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
-  this.network.on("click", this.on_double_click);
-
+  this.network.on("click", this.on_this_click.bind(this));
 }
 
 Graph.prototype.prepare = function () {
@@ -190,28 +221,23 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
+  this.draw_network();
+  this.init_listeners();
 }
 
 Graph.prototype.setzero = function () {
-  q.set_click_type(0);
+  this.set_click_type(0);
 }
+
 Graph.prototype.setone = function () {
-  q.set_click_type(1);
+  this.set_click_type(1);
 }
 Graph.prototype.settwo = function () {
-  q.set_click_type(2);
+  this.set_click_type(2);
 }
 
 
-q.prepare();
-document.getElementById('game-container').addEventListener("startGame", () => q.start());
-document.getElementById('game-container').addEventListener("setzero", () => q.setzero());
-document.getElementById('game-container').addEventListener("setone", () => q.setone());
-document.getElementById('game-container').addEventListener("settwo", () => q.settwo());
-
-// q.start();
+new Graph().start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
