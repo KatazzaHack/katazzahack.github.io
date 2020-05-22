@@ -285,15 +285,18 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = 3. / (n * 1.0);
+  if (n < 9) {
+    return generate_circle_puzzle(n);
+  }
+  let gr = generate_tree_puzzle(n);
   let gr = new Array(n);
-  for (let i = 0; i < n; i++) {
-    gr[i] = new Array(n).fill(0);
-    for (let j = 0; j < i; j++) {
-      if (i !== j && Math.random() < pr) {
-        gr[i][j] = 1;
-        gr[j][i] = 1;
-      }
+  for (let i = 0; i < n;) {
+    let a_node = Math.floor(Math.random() * n);
+    let b_node = Math.floor(Math.random() * n);
+    if (gr[a_node][b_node] == 0) {
+      gr[a_node][b_node] = 1;
+      gr[b_node][a+node] = 1;
+      i++;
     }
   }
   return gr;
