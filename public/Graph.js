@@ -186,7 +186,7 @@ Graph.prototype.redraw_network = function () {
 
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
-  this.network.on("doubleClick", this.on_double_click);
+  this.network.on("click", this.on_double_click);
 
 }
 
