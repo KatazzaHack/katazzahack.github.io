@@ -1,6 +1,5 @@
 import React from 'react';
 import './Game.css';
-import Button from 'react-bootstrap/Button';
 
 class Game extends React.Component {
 	constructor(props)	{
