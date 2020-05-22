@@ -11,7 +11,7 @@ class Buttons extends React.Component {
 	}
 
 	renderButton(i) {
-		return <button onClick={() => this.handleClick(i)}/>;
+		return <ClickTypeButton onClick={() => this.handleClick(i)}/>;
 	}
 
 	handleClick(i) {
@@ -19,14 +19,14 @@ class Buttons extends React.Component {
 	}
 }
 
-class Button extends React.Component {
+class ClickTypeButton extends React.Component {
 	render() {
 		return (
 			<button 
 				type="button" class="btn-default" 
 				onClick={() => this.props.onClick()}
 			>
-				Button
+				Button with click type
 			</button>
 		);
 	}

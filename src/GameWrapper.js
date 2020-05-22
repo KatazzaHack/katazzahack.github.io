@@ -2,32 +2,47 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
 import Game from './Game';
+import Buttons from './Buttons';
 
 class GameWrapper extends React.Component {
 	constructor(props) {
 		super(props);
-		this.is_start = true;
+		this.state = {
+			game_started: false,
+		};
 	}
 
 	render() {
+		let game_content;
+		if (!this.state.game_started) {
+    	game_content = 
+				<Button onClick={() => this.onGameStart()}> Начни блять игру </Button>;
+		} else {
+			game_content = 
+      	<Game onEnd={() => this.OnGameEnd()}></Game>;	
+		}
 		return (
-
 			<div>
 				<nav>
         	<div>
-          	<div>
             	<p> Stats </p>
-          	</div>
-          	<Button is_visible={this.is_start}> Начни блять игру</Button>
         	</div>
+					<div>
+						<Buttons></Buttons>
+					</div>
       	</nav>
-      	<Game is_start={this.is_start} onEnd={() => this.OnGameEnd()}></Game>
+				{game_content}
 			</div>
 		);
 	}
 
+	onGameStart() {
+		console.log("game started");
+		this.setState({game_started: true});
+	}
+
 	onGameEnd() {
-		this.is_start = true;
+		this.setState({game_started: false});
 	}
 }
 
