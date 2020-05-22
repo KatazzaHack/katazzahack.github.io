@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
 
@@ -12,6 +13,15 @@ class GameWrapper extends React.Component {
     };
   }
   
+  onGameEnd() {
+    this.setState({game_started: false});
+  }
+
+  onGameStart() {
+    console.log("game started");
+    this.setState({game_started: true});
+  }
+
   render() {
     let game_content;
     if (!this.state.game_started) {
@@ -23,23 +33,21 @@ class GameWrapper extends React.Component {
     }
     return (
       <div>
-        <nav>
-          <p> Stats </p>
-          <p> Current budget </p>
-          <ClickTypeButtons/>
-        </nav>
+        <Nav>
+          <Nav.Item>
+              <p> Stats </p>
+          </Nav.Item>
+          <Nav.Item>
+            <p> Current budget </p>
+          </Nav.Item>
+          <Nav.Item>
+            <ClickTypeButtons/>
+          </Nav.Item>
+        </Nav>,
+
         {game_content}
       </div>
     );
-  }
-
-  onGameStart() {
-    console.log("game started");
-    this.setState({game_started: true});
-  }
-
-  onGameEnd() {
-    this.setState({game_started: false});
   }
 }
 
