@@ -183,6 +183,11 @@ Graph.prototype.redraw_network = function () {
   }
 }
 
+Graph.prototype.add_public_notice = function () {
+  document.getElementById('public-notice').text = "Your current budget is:" + this.budget;
+}
+
+
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
   this.network.on("click", this.on_click.bind(this));
@@ -196,6 +201,7 @@ Graph.prototype.start = function () {
   this.prepare();
   this.draw_network();
   this.init_listeners();
+  this.add_public_notice();
 }
 
 Graph.prototype.setzero = function () {
