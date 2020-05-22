@@ -1,5 +1,3 @@
-q  =new Graph();
-
 function Graph() {
   var data = new vis.DataSet({});
   this.nodes = new vis.DataSet({});
@@ -95,48 +93,15 @@ Graph.prototype.draw_network = function () {
 
 Graph.prototype.set_click_type = function (click_type) {
   this.click_type = click_type;
-  // q.click_type = click_type;
 }
 
 Graph.prototype.on_node_selected = function (event) {
-  // console.log(event);
   var selected_node = event.nodes[0] - 1;
   console.log(selected_node);
 }
 
-Graph.prototype.on_click = function (event) {
-  var selected_node = event.nodes[0] - 1; // effect +- 1
-  if (q.budget < q.prices[q.click_type]) {
-    alert("Not enough money");
-    return 1;
-  }
-  if (!(q.click_type in [0, 1, 2])) {
-    alert("Please select a click type");
-    return 1;
-  }
-  var nodes_to_decrease = new Array();
-  nodes_to_decrease.push(selected_node);
-  for (let counter = 0; counter < q.click_type; ++counter) {
-    let max_cnt = nodes_to_decrease.length;
-    for (let i = 0; i < max_cnt; ++i) {
-      let vertex = nodes_to_decrease[i];
-      for (let j = 0; j < q.matrix[vertex].length; ++j) {
-        let maybe_new = q.matrix[vertex][j];
-        if (!(nodes_to_decrease.includes(maybe_new))) {
-          nodes_to_decrease.push(maybe_new);
-        }
-      }
-    }
-  }
-  console.log(nodes_to_decrease);
-  q.decrease_life(nodes_to_decrease);
-  q.redraw_network();
-  q.budget = q.budget - q.prices[q.click_type];
-  document.getElementById('stats_during_game').text = "Your current budget is:" + q.budget;
-  
-}
-
 Graph.prototype.on_this_click = function (event) {
+  this.click_type = 2;
   var selected_node = event.nodes[0] - 1; // effect +- 1
   if (this.budget < this.prices[this.click_type]) {
     alert("Not enough money");
@@ -221,6 +186,7 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
+  this.prepare();
   this.draw_network();
   this.init_listeners();
 }
@@ -237,7 +203,8 @@ Graph.prototype.settwo = function () {
 }
 
 
-new Graph().start();
+// q = new Graph();
+// q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
