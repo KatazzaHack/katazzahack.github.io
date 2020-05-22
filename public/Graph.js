@@ -203,8 +203,8 @@ Graph.prototype.settwo = function () {
 }
 
 
-// q = new Graph();
-// q.start();
+ q = new Graph();
+ q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
@@ -282,7 +282,6 @@ function generate_random_puzzle(n) {
     return generate_circle_puzzle(n);
   }
   let gr = generate_tree_puzzle(n);
-  let gr = new Array(n);
   for (let i = 0; i < n;) {
     let a_node = Math.floor(Math.random() * n);
     let b_node = Math.floor(Math.random() * n);
