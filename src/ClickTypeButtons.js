@@ -1,13 +1,14 @@
 import React from 'react';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 
 class ClickTypeButtons extends React.Component {
 	render() {
-		return (<div>
+		return (<ButtonGroup>
 			{this.renderButton(0)} 
 			{this.renderButton(1)}
 			{this.renderButton(2)}
-		</div>);
+		</ButtonGroup>);
 	}
 
 	renderButton(i) {
@@ -22,10 +23,7 @@ class ClickTypeButtons extends React.Component {
 class ClickTypeButton extends React.Component {
 	render() {
 		return (
-			<Button 
-				type="button" 
-				onClick={() => this.props.onClick()}
-			>
+			<Button onClick={() => this.props.onClick()}>
 				Button with click type
 			</Button>
 		);

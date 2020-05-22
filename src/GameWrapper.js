@@ -24,7 +24,7 @@ class GameWrapper extends React.Component {
 		}
 		return (
       <div>
-				<Nav>
+				<Nav variant='pills'>
         	<Nav.Item>
             	<p> Stats </p>
         	</Nav.Item>
