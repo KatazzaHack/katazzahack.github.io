@@ -1,18 +1,7 @@
-
-
-q = new Graph();
-q.prepare();
-document.getElementById('game-container').addEventListener("startGame", {() => q.start()});
-document.getElementById('game-container').addEventListener("setzero", {() => q.setzero()});
-document.getElementById('game-container').addEventListener("setone", {() => q.setone()});
-document.getElementById('game-container').addEventListener("settwo", {() => q.settwo()});
-
-
 function Graph() {
-  var options = {};
-  var data = new vis.DataSet(options);
-  this.nodes = new vis.DataSet(options);
-  this.edges = new vis.DataSet(options);
+  var data = new vis.DataSet({});
+  this.nodes = new vis.DataSet({});
+  this.edges = new vis.DataSet({});
   this.lifes = new Array([]);
   this.matrix = new Array();
   this.network_size = 0;
@@ -20,6 +9,7 @@ function Graph() {
   this.network;
   this.prices = [100, 200, 400]
   this.options = {
+    autoResize: true,
     nodes: {
       borderWidth:4,
       size: 50,
@@ -31,15 +21,19 @@ function Graph() {
     },
     edges: {
       color: 'lightgray'
+    },
+    interaction: {
+      dragView: false
     }
   };
-  this.click_type = 2;
+  this.click_type = -1;
   this.edges_list = new Array();
   this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
-  this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
+  // this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
+  this.img_dir = "public/source/images/";
   this.take_image = {
 3: {0: this.img_dir + "mask1.png",
     1: this.img_dir + "mask2.png",
@@ -59,8 +53,9 @@ Graph.prototype.get_new_network = function () {
   let n_size = Math.floor(Math.random() * 20) + 5;
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
+  alert(f_type + " " + g_type + " " + n_size);
   let gg = generate_puzzle(n_size, g_type, f_type);
-  this.budget = gg.budget * 1.2;
+  this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
   var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
@@ -100,33 +95,38 @@ Graph.prototype.draw_network = function () {
 
 Graph.prototype.set_click_type = function (click_type) {
   this.click_type = click_type;
-  q.click_type = click_type;
 }
 
 Graph.prototype.on_node_selected = function (event) {
-  // console.log(event);
   var selected_node = event.nodes[0] - 1;
   console.log(selected_node);
 }
 
-Graph.prototype.on_double_click = function (event) {
+Graph.prototype.on_click = function (event) {
+  // TODO() remove this after communications with Game will be established
+  this.click_type = 2;
+  if (event.nodes.length == 0) {
+    return;
+  }
+
   var selected_node = event.nodes[0] - 1; // effect +- 1
-  if (q.budget < q.prices[q.click_type]) {
+  console.log("Selected node: " + selected_node);
+  if (this.budget < this.prices[this.click_type]) {
     alert("Not enough money");
     return 1;
   }
-  if (!(q.click_type in [0, 1, 2])) {
+  if (!(this.click_type in [0, 1, 2])) {
     alert("Please select a click type");
     return 1;
   }
   var nodes_to_decrease = new Array();
   nodes_to_decrease.push(selected_node);
-  for (let counter = 0; counter < q.click_type; ++counter) {
+  for (let counter = 0; counter < this.click_type; ++counter) {
     let max_cnt = nodes_to_decrease.length;
     for (let i = 0; i < max_cnt; ++i) {
       let vertex = nodes_to_decrease[i];
-      for (let j = 0; j < q.matrix[vertex].length; ++j) {
-        let maybe_new = q.matrix[vertex][j];
+      for (let j = 0; j < this.matrix[vertex].length; ++j) {
+        let maybe_new = this.matrix[vertex][j];
         if (!(nodes_to_decrease.includes(maybe_new))) {
           nodes_to_decrease.push(maybe_new);
         }
@@ -134,10 +134,10 @@ Graph.prototype.on_double_click = function (event) {
     }
   }
   console.log(nodes_to_decrease);
-  q.decrease_life(nodes_to_decrease);
-  q.redraw_network();
-  q.budget = q.budget - q.prices[q.click_type];
-  document.getElementById('stats_during_game').text = "Your current budget is:" + q.budget;
+  this.decrease_life(nodes_to_decrease);
+  this.redraw_network();
+  this.budget = this.budget - this.prices[this.click_type];
+  document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
   
 }
 
@@ -172,7 +172,6 @@ Graph.prototype.decrease_life = function (nodes_to_decrease) {
 }
 
 Graph.prototype.redraw_network = function () {
-
   for (let i = 0; i < this.network_size; ++i) {
     if (this.nodes_to_change.includes(i)) {
       if (this.lifes[i] == 0) {
@@ -184,10 +183,14 @@ Graph.prototype.redraw_network = function () {
   }
 }
 
+Graph.prototype.add_public_notice = function () {
+  document.getElementById('public-notice').text = "Your current budget is:" + this.budget;
+}
+
+
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
-  this.network.on("click", this.on_double_click);
-
+  this.network.on("click", this.on_click.bind(this));
 }
 
 Graph.prototype.prepare = function () {
@@ -195,23 +198,26 @@ Graph.prototype.prepare = function () {
 }
 
 Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
+  this.prepare();
+  this.draw_network();
+  this.init_listeners();
+  this.add_public_notice();
 }
 
 Graph.prototype.setzero = function () {
-  q.set_click_type(0);
+  this.set_click_type(0);
 }
+
 Graph.prototype.setone = function () {
-  q.set_click_type(1);
+  this.set_click_type(1);
 }
 Graph.prototype.settwo = function () {
-  q.set_click_type(2);
+  this.set_click_type(2);
 }
 
-//q.start();
 
-
+ q = new Graph();
+ q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
@@ -219,6 +225,14 @@ function generate_clique_puzzle(n) {
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(1);
     gr[i][i] = 0;
+  }
+  if (n > 10) {
+    for (let j = 0; j < Math.floor(0.5 * n * n); j++) {
+      let a_node = Math.floor(Math.random() * n);
+      let b_node = Math.floor(Math.random() * n);
+      gr[a_node][b_node] = 0;
+      gr[b_node][a_node] = 0;
+    }
   }
   return gr;
 }
@@ -285,15 +299,17 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = 3. / (n * 1.0);
-  let gr = new Array(n);
-  for (let i = 0; i < n; i++) {
-    gr[i] = new Array(n).fill(0);
-    for (let j = 0; j < i; j++) {
-      if (i !== j && Math.random() < pr) {
-        gr[i][j] = 1;
-        gr[j][i] = 1;
-      }
+  if (n < 9) {
+    return generate_circle_puzzle(n);
+  }
+  let gr = generate_tree_puzzle(n);
+  for (let i = 0; i < n;) {
+    let a_node = Math.floor(Math.random() * n);
+    let b_node = Math.floor(Math.random() * n);
+    if (gr[a_node][b_node] == 0) {
+      gr[a_node][b_node] = 1;
+      gr[b_node][a_node] = 1;
+      i++;
     }
   }
   return gr;
