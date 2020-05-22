@@ -20,6 +20,8 @@ class GameWrapper extends React.Component {
   onGameStart() {
     console.log("game started");
     this.setState({game_started: true});
+    //this.graph = new Graph();
+    //this.graph.start();
   }
 
   render() {
@@ -43,7 +45,7 @@ class GameWrapper extends React.Component {
           <Nav.Item>
             <ClickTypeButtons/>
           </Nav.Item>
-        </Nav>,
+        </Nav>
 
         {game_content}
       </div>
