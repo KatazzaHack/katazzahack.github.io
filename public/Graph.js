@@ -54,7 +54,7 @@ Graph.prototype.get_new_network = function () {
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
   alert(f_type + " " + g_type + " " + n_size);
   let gg = generate_puzzle(n_size, g_type, f_type);
-  this.budget = gg.budget * 1.2;
+  this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
   var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
@@ -204,8 +204,8 @@ Graph.prototype.settwo = function () {
 }
 
 
- q = new Graph();
- q.start();
+ //q = new Graph();
+ //q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
