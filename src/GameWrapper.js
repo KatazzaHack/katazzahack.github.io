@@ -6,49 +6,48 @@ import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
 
 class GameWrapper extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			game_started: false,
-		};
-	}
+  constructor(props) {
+    super(props);
+    this.state = {
+      game_started: false,
+    };
+  }
+  
+  onGameEnd() {
+    this.setState({game_started: false});
+  }
 
-	render() {
-		let game_content;
-		if (!this.state.game_started) {
-    	game_content = 
-				<Button onClick={() => this.onGameStart()}> Начни блять игру </Button>;
-		} else {
-			game_content = 
-      	<Game onEnd={() => this.OnGameEnd()}></Game>;	
-		}
-		return (
+  onGameStart() {
+    console.log("game started");
+    this.setState({game_started: true});
+  }
+
+  render() {
+    let game_content;
+    if (!this.state.game_started) {
+      game_content = 
+        <Button onClick={() => this.onGameStart()}> Начни блять игру </Button>;
+    } else {
+      game_content = 
+        <Game onEnd={() => this.OnGameEnd()}></Game>; 
+    }
+    return (
       <div>
-				<Nav variant='pills'>
-        	<Nav.Item>
-            	<p> Stats </p>
-        	</Nav.Item>
-        	<Nav.Item>
-        		<p> Current budget </p>
-        	</Nav.Item>
-					<Nav.Item>
-						<ClickTypeButtons/>
-					</Nav.Item>
-      	</Nav>,
-
-				{game_content}
+        <Nav>
+          <Nav.Item>
+              <p> Stats </p>
+          </Nav.Item>
+          <Nav.Item>
+            <p> Current budget </p>
+          </Nav.Item>
+          <Nav.Item>
+            <ClickTypeButtons/>
+          </Nav.Item>
+        </Nav>,
+        {game_content}
       </div>
-		);
-	}
-
-	onGameStart() {
-		console.log("game started");
-		this.setState({game_started: true});
-	}
-
-	onGameEnd() {
-		this.setState({game_started: false});
-	}
+    );
+  }
 }
 
 const domContainer = document.querySelector('#content');

@@ -11,13 +11,13 @@ class ClickTypeButtons extends React.Component {
 		</ButtonGroup>);
 	}
 
-	renderButton(i) {
-		return <ClickTypeButton onClick={() => this.handleClick(i)}/>;
-	}
+  renderButton(i) {
+    return <ClickTypeButton onClick={() => this.handleClick(i)}/>;
+  }
 
-	handleClick(i) {
-		console.log('button ' + i + ' was pressed');
-	}
+  handleClick(i) {
+    console.log('button ' + i + ' was pressed');
+  }
 }
 
 class ClickTypeButton extends React.Component {
