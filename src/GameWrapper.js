@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
 import Game from './Game';
 
-class Content extends React.Component {
+class GameWrapper extends React.Component {
 	constructor(props) {
 		super(props);
 		this.is_start = true;
@@ -11,13 +11,14 @@ class Content extends React.Component {
 
 	render() {
 		return (
+
 			<div>
 				<nav>
         	<div>
           	<div>
             	<p> Stats </p>
           	</div>
-          	<Button is_visible={this.is_start}></Button>
+          	<Button is_visible={this.is_start}> Начни блять игру</Button>
         	</div>
       	</nav>
       	<Game is_start={this.is_start} onEnd={() => this.OnGameEnd()}></Game>
@@ -31,6 +32,6 @@ class Content extends React.Component {
 }
 
 const domContainer = document.querySelector('#content');
-ReactDOM.render(React.createElement(Content), domContainer);
+ReactDOM.render(React.createElement(GameWrapper), domContainer);
 
-export default Content;
+export default GameWrapper;
