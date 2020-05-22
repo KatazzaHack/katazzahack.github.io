@@ -1,5 +1,5 @@
 import React from 'react';
-import './Buttons.css';
+import Button from 'react-bootstrap/Button';
 
 class Buttons extends React.Component {
 	render() {
@@ -11,7 +11,7 @@ class Buttons extends React.Component {
 	}
 
 	renderButton(i) {
-		return <Button onClick={() => this.handleClick(i)}/>;
+		return <button onClick={() => this.handleClick(i)}/>;
 	}
 
 	handleClick(i) {
