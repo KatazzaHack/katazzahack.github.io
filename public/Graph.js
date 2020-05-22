@@ -2,10 +2,10 @@
 
 q = new Graph();
 q.prepare();
-this.container.addEventListener("startGame", {() => this.start()});
-this.container.addEventListener("setzero", {() => this.setzero()});
-this.container.addEventListener("setone", {() => this.setone()});
-this.container.addEventListener("settwo", {() => this.settwo()});
+document.getElementById('game-container').addEventListener("startGame", {() => q.start()});
+document.getElementById('game-container').addEventListener("setzero", {() => q.setzero()});
+document.getElementById('game-container').addEventListener("setone", {() => q.setone()});
+document.getElementById('game-container').addEventListener("settwo", {() => q.settwo()});
 
 
 function Graph() {
