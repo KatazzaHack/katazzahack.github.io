@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Content from './Content';
+import Header from './Header';
 import * as serviceWorker from './serviceWorker';
 
 // Importing the Bootstrap CSS
@@ -8,6 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
+  	<Header />
     <Content />
   </React.StrictMode>,
   document.getElementById('content')

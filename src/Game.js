@@ -22,16 +22,17 @@ class Game extends React.Component {
 					<Button onClick={() => this.startGame()}>
 						Start game
 					</Button>
+          <div id="game-container"> </div>
 				</div>
 			);
 		//}
 	}
 
 	startGame() {
-		console.log('start game');
+		console.log("start game");
 		this.game_is_active = true;
-		this.container = document.getElementById('game-container');
-		this.container.dispatchEvent(new Event('gameStart'));
+		this.container = document.getElementById("game-container");
+		this.container.dispatchEvent(new Event("gameStart"));
 	}
 }
 
