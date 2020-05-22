@@ -34,21 +34,24 @@ class GameWrapper extends React.Component {
         <Game onEnd={() => this.OnGameEnd()}></Game>; 
     }
     return (
-      <div>
-        <Nav>
+      <main>
+      	<br/>
+      	<br/>
+        <Nav className="justify-content-center">
           <Nav.Item>
-              <p> Stats </p>
+              <div id="stats_id"> Stats </div>
           </Nav.Item>
           <Nav.Item>
-            <p> Current budget </p>
+            <div id="budget_id"> Current Budget </div>
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons/>
           </Nav.Item>
         </Nav>
-
+        <br/>
+        <br/>
         {game_content}
-      </div>
+      </main>
     );
   }
 }
