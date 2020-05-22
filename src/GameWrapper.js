@@ -20,6 +20,8 @@ class GameWrapper extends React.Component {
   onGameStart() {
     console.log("game started");
     this.setState({game_started: true});
+    //this.graph = new Graph();
+    //this.graph.start();
   }
 
   render() {
