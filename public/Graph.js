@@ -204,8 +204,8 @@ Graph.prototype.settwo = function () {
 }
 
 
- //q = new Graph();
- //q.start();
+ q = new Graph();
+ q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {

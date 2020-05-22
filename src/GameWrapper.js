@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
+import Nav from 'react-bootstrap/Nav';
 import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
 
@@ -22,17 +23,17 @@ class GameWrapper extends React.Component {
       	<Game onEnd={() => this.OnGameEnd()}></Game>;	
 		}
 		return (
-			<div>
-				<nav>
-        	<div>
+      <div>
+				<Nav>
+        	<Nav.Item>
             	<p> Stats </p>
-        	</div>
-					<div>
+        	</Nav.Item>
+					<Nav.Item>
 						<ClickTypeButtons/>
-					</div>
-      	</nav>
+					</Nav.Item>
+      	</Nav>,
 				{game_content}
-			</div>
+      </div>
 		);
 	}
 
