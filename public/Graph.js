@@ -1,11 +1,6 @@
 
 
 q = new Graph();
-q.prepare();
-document.getElementById('game-container').addEventListener("startGame", {() => q.start()});
-document.getElementById('game-container').addEventListener("setzero", {() => q.setzero()});
-document.getElementById('game-container').addEventListener("setone", {() => q.setone()});
-document.getElementById('game-container').addEventListener("settwo", {() => q.settwo()});
 
 
 function Graph() {
@@ -209,9 +204,14 @@ Graph.prototype.settwo = function () {
   q.set_click_type(2);
 }
 
-//q.start();
 
+q.prepare();
+document.getElementById('game-container').addEventListener("startGame", () => q.start());
+document.getElementById('game-container').addEventListener("setzero", () => q.setzero());
+document.getElementById('game-container').addEventListener("setone", () => q.setone());
+document.getElementById('game-container').addEventListener("settwo", () => q.settwo());
 
+// q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
