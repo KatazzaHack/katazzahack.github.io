@@ -35,7 +35,7 @@ class GameWrapper extends React.Component {
       <main>
       	<br/>
       	<br/>
-        <Nav className="justify-content-center">
+        <Nav className="justify-content-center" justify="true">
           <Nav.Item>
               <div id="stats_id"> Stats </div>
           </Nav.Item>
