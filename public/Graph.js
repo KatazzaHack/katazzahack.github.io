@@ -53,8 +53,9 @@ Graph.prototype.get_new_network = function () {
   let n_size = Math.floor(Math.random() * 20) + 5;
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
+  alert(f_type + " " + g_type + " " + n_size);
   let gg = generate_puzzle(n_size, g_type, f_type);
-  this.budget = gg.budget * 1.2;
+  this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
   var edges_got = JSON.parse(JSON.stringify(gg.graph));
   this.edges_list = edges_got.slice();
@@ -209,8 +210,8 @@ Graph.prototype.settwo = function () {
 }
 
 
-// q = new Graph();
-// q.start();
+ //q = new Graph();
+ //q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
@@ -218,6 +219,14 @@ function generate_clique_puzzle(n) {
   for (let i = 0; i < n; i++) {
     gr[i] = new Array(n).fill(1);
     gr[i][i] = 0;
+  }
+  if (n > 10) {
+    for (let j = 0; j < Math.floor(0.5 * n * n); j++) {
+      let a_node = Math.floor(Math.random() * n);
+      let b_node = Math.floor(Math.random() * n);
+      gr[a_node][b_node] = 0;
+      gr[b_node][a_node] = 0;
+    }
   }
   return gr;
 }
@@ -284,15 +293,17 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  let pr = 3. / (n * 1.0);
-  let gr = new Array(n);
-  for (let i = 0; i < n; i++) {
-    gr[i] = new Array(n).fill(0);
-    for (let j = 0; j < i; j++) {
-      if (i !== j && Math.random() < pr) {
-        gr[i][j] = 1;
-        gr[j][i] = 1;
-      }
+  if (n < 9) {
+    return generate_circle_puzzle(n);
+  }
+  let gr = generate_tree_puzzle(n);
+  for (let i = 0; i < n;) {
+    let a_node = Math.floor(Math.random() * n);
+    let b_node = Math.floor(Math.random() * n);
+    if (gr[a_node][b_node] == 0) {
+      gr[a_node][b_node] = 1;
+      gr[b_node][a_node] = 1;
+      i++;
     }
   }
   return gr;
