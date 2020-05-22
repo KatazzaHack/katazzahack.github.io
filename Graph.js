@@ -1,7 +1,12 @@
 
 
 q = new Graph();
-document.getElementById('game-container').addEventListener("gameStart", () => q.start());
+q.prepare();
+document.getElementById('game-container').addEventListener("startGame", {() => q.start()});
+document.getElementById('game-container').addEventListener("setzero", {() => q.setzero()});
+document.getElementById('game-container').addEventListener("setone", {() => q.setone()});
+document.getElementById('game-container').addEventListener("settwo", {() => q.settwo()});
+
 
 function Graph() {
   var options = {};
@@ -181,11 +186,8 @@ Graph.prototype.redraw_network = function () {
 
 Graph.prototype.init_listeners = function () {
   this.network.on("selectNode", this.on_node_selected);
-  this.network.on("doubleClick", this.on_double_click);
-  this.container.addListener("startGame", this.start);
-  //this.container.addListener("setzero", this.setzero);
-  //this.container.addListener("setone", this.setone);
-  //this.container.addListener("settwo", this.settwo);
+  this.network.on("click", this.on_double_click);
+
 }
 
 Graph.prototype.prepare = function () {
@@ -196,20 +198,17 @@ Graph.prototype.start = function () {
   q.draw_network();
   q.init_listeners();
 }
-/**
+
 Graph.prototype.setzero = function () {
-  q.draw_network();
-  q.init_listeners();
+  q.set_click_type(0);
 }
-Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
+Graph.prototype.setone = function () {
+  q.set_click_type(1);
 }
-Graph.prototype.start = function () {
-  q.draw_network();
-  q.init_listeners();
-}*/
-q.prepare();
+Graph.prototype.settwo = function () {
+  q.set_click_type(2);
+}
+
 //q.start();
 
 
