@@ -28,10 +28,14 @@ class GameWrapper extends React.Component {
         	<Nav.Item>
             	<p> Stats </p>
         	</Nav.Item>
+        	<Nav.Item>
+        		<p> Current budget </p>
+        	</Nav.Item>
 					<Nav.Item>
 						<ClickTypeButtons/>
 					</Nav.Item>
       	</Nav>,
+
 				{game_content}
       </div>
 		);
