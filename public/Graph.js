@@ -6,8 +6,8 @@ function Graph() {
   this.matrix = new Array();
   this.network_size = 0;
   this.budget = 0;
-  this.network;
-  this.prices = [100, 200, 400]
+  this.network = 0;
+  this.prices = [100, 200, 400];
   this.options = {
     autoResize: true,
     nodes: {
@@ -33,7 +33,7 @@ function Graph() {
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
   // this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
-  this.img_dir = "public/source/images/";
+  this.img_dir = "%PUBLIC_URL%/source/images/";
   this.take_image = {
 3: {0: this.img_dir + "mask1.png",
     1: this.img_dir + "mask2.png",
@@ -216,8 +216,8 @@ Graph.prototype.settwo = function () {
 }
 
 
- q = new Graph();
- q.start();
+// q = new Graph();
+// q.start();
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
