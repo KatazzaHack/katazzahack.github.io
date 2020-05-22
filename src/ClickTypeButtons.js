@@ -2,34 +2,34 @@ import React from 'react';
 import Button from 'react-bootstrap/Button';
 
 class ClickTypeButtons extends React.Component {
-	render() {
-		return (<div>
-			{this.renderButton(0)} 
-			{this.renderButton(1)}
-			{this.renderButton(2)}
-		</div>);
-	}
+  render() {
+    return (<div>
+      {this.renderButton(0)} 
+      {this.renderButton(1)}
+      {this.renderButton(2)}
+    </div>);
+  }
 
-	renderButton(i) {
-		return <ClickTypeButton onClick={() => this.handleClick(i)}/>;
-	}
+  renderButton(i) {
+    return <ClickTypeButton onClick={() => this.handleClick(i)}/>;
+  }
 
-	handleClick(i) {
-		console.log('button ' + i + ' was pressed');
-	}
+  handleClick(i) {
+    console.log('button ' + i + ' was pressed');
+  }
 }
 
 class ClickTypeButton extends React.Component {
-	render() {
-		return (
-			<Button 
-				type="button" 
-				onClick={() => this.props.onClick()}
-			>
-				Button with click type
-			</Button>
-		);
-	}
+  render() {
+    return (
+      <Button 
+        type="button" 
+        onClick={() => this.props.onClick()}
+      >
+        Button with click type
+      </Button>
+    );
+  }
 }
 
 export default ClickTypeButtons;

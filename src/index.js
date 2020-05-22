@@ -9,7 +9,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 ReactDOM.render(
   <React.StrictMode>
-  	<Header />
+    <Header />
     <GameWrapper />
   </React.StrictMode>,
   document.getElementById('content')
