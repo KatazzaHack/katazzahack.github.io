@@ -22,12 +22,12 @@ class ClickTypeButtons extends React.Component {
 class ClickTypeButton extends React.Component {
 	render() {
 		return (
-			<button 
+			<Button 
 				type="button" 
 				onClick={() => this.props.onClick()}
 			>
 				Button with click type
-			</button>
+			</Button>
 		);
 	}
 }
