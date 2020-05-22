@@ -53,7 +53,6 @@ Graph.prototype.get_new_network = function () {
   let n_size = Math.floor(Math.random() * 20) + 5;
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
-  alert(f_type + " " + g_type + " " + n_size);
   let gg = generate_puzzle(n_size, g_type, f_type);
   this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
