@@ -6,6 +6,7 @@ import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
 import CurrentBudget from './CurrentBudget';
 import Stats from './Stats';
+import NEM from './NotEnoughMoney';
 
 class GameWrapper extends React.Component {
   constructor(props) {
@@ -63,6 +64,7 @@ class GameWrapper extends React.Component {
     }
     return (
       <main>
+        <NEM />
       	<br/>
       	<br/>
         <Nav className="justify-content-center" justify="true">
