@@ -56,6 +56,7 @@ class GameWrapper extends React.Component {
   }
 
   onGameRestart() {
+    // Start new
     console.log("game reset");
     this.onGameEnd();
     this.onGameStart();
@@ -63,6 +64,7 @@ class GameWrapper extends React.Component {
   }
 
   onGameReset() {
+    // Start again
     this.onGameEnd();
     this.onGameStart();
     this.current_game.current.onGameReset();
@@ -146,6 +148,9 @@ class GameWrapper extends React.Component {
         <Modal.Body class="center">
           <Button variant="primary" onClick={() => {this.onGameStart()}}>
             Ещё разок
+          </Button>
+          <Button variant="secondary" onClick={() => {this.onGameReset()}}>
+            Заново
           </Button>
         </Modal.Body>
  
