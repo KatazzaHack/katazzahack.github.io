@@ -40,7 +40,7 @@ class GameWrapper extends React.Component {
         </div>
     } else {
       game_content = 
-        <Game onGameEnd={(user_won) => this.OnGameEnd(user_won)}></Game>; 
+        <Game onGameEnd={this.onGameEnd.bind(this)}></Game>; 
     }
     return (
       <main>
