@@ -104,7 +104,8 @@ Graph.prototype.draw_network = function () {
     nodes: this.nodes,
     edges: this.edges
   };
-  this.options.height = Math.floor(window.screen.height * 0.5).toString();
+  this.options.height = Math.floor((window.screen.height - 200 - (document.getElementById("statfooter").offsetHeight +
+   document.getElementById("statheader").offsetHeight + document.getElementById("statnavid").offsetHeight))).toString();
   this.network = new Network(this.container, data, this.options);
 }
 

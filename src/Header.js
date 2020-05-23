@@ -14,7 +14,7 @@ class Header extends React.Component {
 
 	render() {
 		return (
-			<header>
+			<header id="statheader">
         <h1> Корона CK убивает </h1>
 				<Button
         			onClick={() => this.setState({ open: !this.state.open })}
