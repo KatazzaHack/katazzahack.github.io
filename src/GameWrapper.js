@@ -10,6 +10,7 @@ class GameWrapper extends React.Component {
     super(props);
     this.state = {
       game_started: false,
+      budget: 0,
     };
     this.game_result = "";
   }
@@ -27,6 +28,11 @@ class GameWrapper extends React.Component {
     console.log("game started");
     this.setState({game_started: true});
   }
+
+  onBudgetChanged(new_budget) {
+    console.log("budget changed");
+    this.setState({budget: new_budget});
+  } 
 
   render() {
     let game_content;
@@ -49,7 +55,7 @@ class GameWrapper extends React.Component {
               <div id="stats_id"> Stats </div>
           </Nav.Item>
           <Nav.Item>
-            <div id="budget_id"> Current Budget </div>
+            <div id="budget_id">{this.state.budget}</div>
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons/>
