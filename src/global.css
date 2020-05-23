@@ -1,0 +1,6 @@
+.content-main {
+  min-height: calc(100vh - 70px);
+}
+.footer-main {
+  height: 50px;
+}

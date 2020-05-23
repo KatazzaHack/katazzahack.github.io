@@ -28,7 +28,7 @@ class GameWrapper extends React.Component {
     let game_content;
     if (!this.state.game_started) {
       game_content = 
-        <Button onClick={() => this.onGameStart()}> Начни блять игру </Button>;
+        <Button onClick={() => this.onGameStart()}> Начни заражать всех</Button>;
     } else {
       game_content = 
         <Game onEnd={() => this.OnGameEnd()}></Game>; 
@@ -39,10 +39,10 @@ class GameWrapper extends React.Component {
       	<br/>
         <Nav className="justify-content-center" justify="true">
           <Nav.Item>
-              <div id="stats_id"> Stats </div>
+              <div id="stats_id"> Статистика </div>
           </Nav.Item>
           <Nav.Item>
-            <div id="budget_id"> Current Budget </div>
+            <div id="budget_id"> Твой Бюджет </div>
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons/>

@@ -5,9 +5,9 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 class ClickTypeButtons extends React.Component {
 	render() {
 		return (<ButtonGroup size="sm">
-			{this.renderButton(0, "Small")} 
-			{this.renderButton(1, "Medium")}
-			{this.renderButton(2, "Large")}
+			{this.renderButton(0, "Себя")} 
+			{this.renderButton(1, "+Первых соседей")}
+			{this.renderButton(2, "+Вторых соседей")}
 		</ButtonGroup>);
 	}
 
