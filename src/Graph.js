@@ -44,7 +44,7 @@ function Graph(onBudgetChange, onGameEnd) {
       dragView: false
     }
   };
-  this.click_type = -1;
+  this.click_type = 1;
   this.edges_list = new Array();
   this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');

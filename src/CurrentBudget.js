@@ -7,6 +7,10 @@ class CurrentBudget extends React.Component {
   }
 
   render() {
+    if (!this.props.budget) {
+      return <div id="budget_id"> 
+      </div>;
+    }
     return <div id="budget_id"> 
       У тебя осталось: {this.props.budget}
     </div>;
