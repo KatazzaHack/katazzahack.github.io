@@ -27,10 +27,13 @@ class GameWrapper extends React.Component {
   
   onGameEnd(user_won) {
     console.log("game finished, user won: " + user_won);
+    let new_wins = this.state.wins;
     if (user_won) {
-      this.setState({wins: this.state.wins + 1});
+      new_wins = new_wins + 1;
     }
-    this.setState({game_started: false, games_in_total: this.state.games_in_total + 1, game_just_finished: user_won != null, last_game_user_won: user_won});
+    this.onBudgetChanged(0);
+    this.setState({game_started: false, games_in_total: this.state.games_in_total + 1, game_just_finished: user_won != null, last_game_user_won: user_won, budget: 0, wins: new_wins});
+    
   }
 
   onGameStart() {
