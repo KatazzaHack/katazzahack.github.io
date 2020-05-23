@@ -8,8 +8,13 @@ class Game extends React.Component {
   }
 
   render() {
-    return <div id="game-container"> 
-      Game should be here
+    return <div 
+      id="game-container" 
+       class="main" 
+       width="100" 
+       height="100" 
+    > 
+      Game should be here 
     </div>;
   }
 
