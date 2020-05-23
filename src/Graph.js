@@ -65,8 +65,8 @@ function Graph(onGameEnd) {
 Graph.prototype.get_new_network = function () {
   // this.lifes = [1, 1, 2, 0, 1, 1, 1, 2, 3];
   // var edges_got = [[0, 2], [1, 3], [1, 4], [1, 5] , [1, 8], [4, 7],  [7, 8]];
-  let n_size = Math.floor(Math.random() * 20) + 5;
-  let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
+  let n_size = Math.floor(Math.random() * 20) + 7;
+  let g_type = ["tree", "random", "circle"][Math.floor(Math.random() * 3)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
   let generated_puzzle = generate_puzzle(n_size, g_type, f_type);
   this.budget = generated_puzzle.budget;
@@ -88,12 +88,6 @@ Graph.prototype.get_new_network = function () {
   }
 };
 
-function dirty_hack_with_canvas() {
-  var can = document.getElementsByTagName("canvas")[0];
-  can.width = Math.floor(window.screen.width * 0.3);
-  can.height = Math.floor(window.screen.height * 0.2);
-}
-
 Graph.prototype.draw_network = function () {
   for (let i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
@@ -111,7 +105,7 @@ Graph.prototype.draw_network = function () {
  // dirty_hack_with_canvas();
  // var can = document.getElementsByTagName("canvas")[0];
  // this.options.width = can.width;
-  this.options.height = Math.floor(window.screen.height * 0.4);
+  this.options.height = Math.floor(window.screen.height * 0.5).toString();
   this.network = new Network(this.container, data, this.options);
   //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
 }
