@@ -30,10 +30,7 @@ class GameWrapper extends React.Component {
     if (user_won) {
       this.setState({wins: this.state.wins + 1});
     }
-    this.setState({game_started: false, games_in_total: this.state.games_in_total + 1, game_just_finished: true, last_game_user_won: user_won});
-    // this.setState({games_in_total: this.state.games_in_total + 1});
-    // this.setState({game_just_finished: true});
-    // this.setState({last_game_user_won: 1});
+    this.setState({game_started: false, games_in_total: this.state.games_in_total + 1, game_just_finished: user_won != null, last_game_user_won: user_won});
   }
 
   onGameStart() {
@@ -127,7 +124,7 @@ class GameWrapper extends React.Component {
           centered>
         <Modal.Header closeButton>
           <Modal.Title id="game-result-title" >
-            <h3 class="modal-title" style="margin: 0 auto;"> {this.state.last_game_user_won ?  "Победа!" :"Поражение!"} </h3>
+            <h3 class="modal-title"> {this.state.last_game_user_won ?  "Победа!" :"Поражение!"} </h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
