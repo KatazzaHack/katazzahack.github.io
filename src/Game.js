@@ -9,7 +9,7 @@ class Game extends React.Component {
   
   onClickTypeChanged(new_click_type) {
     console.log("new click type: " + new_click_type);
-    
+    this.graph.set_click_type(new_click_type); 
   }
 
   render() {

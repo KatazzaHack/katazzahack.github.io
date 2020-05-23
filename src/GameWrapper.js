@@ -18,6 +18,7 @@ class GameWrapper extends React.Component {
     };
     this.game_result = "";
     this.click_type = 0;
+    this.current_game = React.createRef();
   }
   
   onGameEnd(user_won) {
@@ -42,8 +43,9 @@ class GameWrapper extends React.Component {
   } 
 
   onClickTypeChanged(new_click_type) {
+    console.log("type click changed");
     this.click_type = new_click_type;
-    this.current_game.onClickTypeChanged(new_click_type);
+    this.current_game.current.onClickTypeChanged(new_click_type);
   }
 
   render() {
@@ -61,12 +63,12 @@ class GameWrapper extends React.Component {
         </div>
     } else {
       game_content = 
-        <Game 
+        <Game
+          ref={this.current_game} 
           onBudgetChanged={this.onBudgetChanged.bind(this)}
           onGameEnd={this.onGameEnd.bind(this)}
         >
         </Game>;
-      this.current_game = game_content; 
     }
     return (
       <main>
@@ -81,7 +83,7 @@ class GameWrapper extends React.Component {
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons 
-              onClickTypeChanged={this.onClickTypeChanged.bind(this)}
+              onClickTypeChanged={(new_click_type) => this.onClickTypeChanged(new_click_type)}
             />
           </Nav.Item>
         </Nav>
