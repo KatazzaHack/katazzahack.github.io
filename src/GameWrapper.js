@@ -32,11 +32,12 @@ class GameWrapper extends React.Component {
   }
 
   onBudgetChanged(new_budget) {
-    console.log("budget changed");
+    console.log("budget changed: " + new_budget);
     this.setState({budget: new_budget});
   } 
 
   render() {
+    console.log("rerendering");
     let game_content;
     if (!this.state.game_started) {
       game_content = 
