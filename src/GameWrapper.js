@@ -42,11 +42,19 @@ class GameWrapper extends React.Component {
       game_content = 
         <div>
           <div>{this.game_result}</div>
-          <Button onClick={() => this.onGameStart()}> Начни заражать всех </Button>
+          <Button 
+            onClick={() => this.onGameStart()}
+          > 
+            Начни заражать всех 
+          </Button>
         </div>
     } else {
       game_content = 
-        <Game onGameEnd={this.onGameEnd.bind(this)}></Game>; 
+        <Game 
+          onBudgetChanged={this.onBudgetChanged.bind(this)}
+          onGameEnd={this.onGameEnd.bind(this)}
+        >
+        </Game>; 
     }
     return (
       <main>
