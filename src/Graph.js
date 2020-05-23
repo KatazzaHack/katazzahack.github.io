@@ -18,6 +18,8 @@ function Graph(onBudgetChange, onGameEnd, onNotEnough) {
   this.on_game_end = onGameEnd;
   this.on_budget_change = onBudgetChange;
   this.on_not_enough = onNotEnough;
+  // this.on_save = onSave;
+  this.saved = -1;
   var data = new DataSet({});
   this.nodes = new DataSet({});
   this.edges = new DataSet({});
@@ -91,7 +93,7 @@ Graph.prototype.get_new_network = function () {
     }
   }
   this.on_budget_change(this.budget);
-  this.saved = {'budget': this.budget, 'lifes': this.lifes.slice(), 'edges_list': this.edges_list.slice(), 'person_types': this.person_types.slice()}
+  this.saved = {'budget': this.budget, 'lifes': this.lifes.slice(), 'edges_list': this.edges_list.slice(), 'person_types': this.person_types.slice()};
 };
 
 Graph.prototype.draw_network = function () {
@@ -235,7 +237,7 @@ Graph.prototype.redraw_network = function () {
       if (this.lifes[i] == 0) {
         this.nodes.remove({id:i + 1});
       } else {
-        this.nodes.update([{id:i + 1, image: this.take_image[this.lifes[i]][this.person_types[i]], color: this.take_color[this.lifes[i]]}]);
+        if (this.lifes[i] >= 0) this.nodes.update([{id:i + 1, image: this.take_image[this.lifes[i]][this.person_types[i]], color: this.take_color[this.lifes[i]]}]);
       }
     }
   }
@@ -251,8 +253,7 @@ Graph.prototype.start = function () {
   this.init_listeners();
 }
 
-//q = new Graph();
-// q.start();
+
 
 
 // generate clique puzzle

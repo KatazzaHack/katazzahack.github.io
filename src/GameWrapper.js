@@ -149,9 +149,6 @@ class GameWrapper extends React.Component {
           <Button variant="primary" onClick={() => {this.onGameStart()}}>
             Ещё разок
           </Button>
-          <Button variant="secondary" onClick={() => {this.onGameReset()}}>
-            Заново
-          </Button>
         </Modal.Body>
  
       </Modal>
