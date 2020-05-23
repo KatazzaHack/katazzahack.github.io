@@ -1,7 +1,12 @@
+import { DataSet } from "vis-data/peer/esm/vis-data";
+import { Network } from "vis-network/peer/esm/vis-network";
+
+var vis = require("vis-network");
+
 function Graph() {
-  var data = new vis.DataSet({});
-  this.nodes = new vis.DataSet({});
-  this.edges = new vis.DataSet({});
+  var data = new DataSet({});
+  this.nodes = new DataSet({});
+  this.edges = new DataSet({});
   this.lifes = new Array([]);
   this.matrix = new Array();
   this.network_size = 0;
@@ -53,7 +58,6 @@ Graph.prototype.get_new_network = function () {
   let n_size = Math.floor(Math.random() * 20) + 5;
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
-  alert(f_type + " " + g_type + " " + n_size);
   let gg = generate_puzzle(n_size, g_type, f_type);
   this.budget = gg.budget;
   this.lifes = JSON.parse(JSON.stringify(gg.lifes));
@@ -89,8 +93,8 @@ Graph.prototype.draw_network = function () {
     edges: this.edges
   };
 
-  this.network = new vis.Network(this.container, data, this.options);
-  document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
+  this.network = new Network(this.container, data, this.options);
+  //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
 }
 
 Graph.prototype.set_click_type = function (click_type) {
@@ -137,7 +141,7 @@ Graph.prototype.on_click = function (event) {
   this.decrease_life(nodes_to_decrease);
   this.redraw_network();
   this.budget = this.budget - this.prices[this.click_type];
-  document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
+  //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
   
 }
 
@@ -216,8 +220,13 @@ Graph.prototype.settwo = function () {
 }
 
 
+<<<<<<< HEAD:public/Graph.js
 // q = new Graph();
 // q.start();
+=======
+ //q = new Graph();
+ //q.start();
+>>>>>>> c63818b6272eec3a5894422d2031dd7a4efd4711:src/Graph.js
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
@@ -463,3 +472,5 @@ function solve_puzzle(puzzle) {
   puzzle.budget = budget
   return puzzle;
 }
+
+export default Graph;

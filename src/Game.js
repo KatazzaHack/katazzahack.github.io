@@ -1,5 +1,6 @@
 import React from 'react';
 import './Game.css';
+import Graph from './Graph';
 
 class Game extends React.Component {
   constructor(props)  {
@@ -7,7 +8,12 @@ class Game extends React.Component {
   }
 
   render() {
-    return <div id="game-container"> Game should be here</div>;
+    return <div id="game-container"> Game should be here </div>;
+  }
+
+  componentDidMount() {
+    this.graph = new Graph();
+    this.graph.start();
   }
 }
 
