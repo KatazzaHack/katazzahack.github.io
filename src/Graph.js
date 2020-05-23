@@ -33,7 +33,7 @@ function Graph(onBudgetChange, onGameEnd) {
       borderWidth:4,
       size: 50,
       color: {
-        border: '#222222',
+        border: '#ffffff',
         background: '#666666'
       },
       font:{color:'#eeeeee'}
@@ -45,7 +45,7 @@ function Graph(onBudgetChange, onGameEnd) {
       dragView: false
     }
   };
-  this.click_type = 1;
+  this.click_type = -1;
   this.edges_list = new Array();
   this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');

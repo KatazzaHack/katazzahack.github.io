@@ -6,6 +6,11 @@ class Game extends React.Component {
   constructor(props)  {
     super(props);
   }
+  
+  onClickTypeChanged(new_click_type) {
+    console.log("new click type: " + new_click_type);
+    this.graph.set_click_type(new_click_type); 
+  }
 
   render() {
     return <div 

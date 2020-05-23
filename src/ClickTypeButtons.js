@@ -30,20 +30,34 @@ class ClickTypeButtons extends React.Component {
 	}
 
   renderButton(i, name, vari, cost) {
-    return <ClickTypeButton button_name={name} variant={vari} cost={cost} onClick={() => this.handleClick(i)}/>;
+    return <ClickTypeButton 
+      button_name={name} 
+      variant={vari} 
+      cost={cost} 
+      onClick={() => this.handleClick(i)}
+    />;
   }
 
   handleClick(i) {
     this.setState({ active_button: i });
     console.log('button ' + i + ' was pressed');
+    this.props.onClickTypeChanged(i);
   }
 }
 
 class ClickTypeButton extends React.Component {
 	render() {
     return (
-      <OverlayTrigger overlay={<Tooltip id="tooltip-disabled">Это стоит {this.props.cost} рублей!</Tooltip>}>
-          <Button variant={this.props.variant} onClick={() => this.props.onClick()}>
+      <OverlayTrigger 
+        overlay={
+          <Tooltip id="tooltip-disabled"> 
+            Это стоит {this.props.cost} рублей! 
+          </Tooltip>}
+      >
+          <Button 
+            variant={this.props.variant} 
+            onClick={() => this.props.onClick()}
+          >
             {this.props.button_name}
           </Button>
       </OverlayTrigger>
