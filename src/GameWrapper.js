@@ -17,6 +17,8 @@ class GameWrapper extends React.Component {
       wins: 0,
       games_in_total: 0,
       not_enough: false,
+      game_just_finished: false,
+      last_game_user_won: 0,
     };
     this.game_result = "";
     this.click_type = 0;
@@ -26,12 +28,12 @@ class GameWrapper extends React.Component {
   onGameEnd(user_won) {
     console.log("game finished, user won: " + user_won);
     if (user_won) {
-      this.game_result = "YOU WON!";
       this.setState({wins: this.state.wins + 1});
-    } else
-      this.game_result = "YOU LOST!";
-    this.setState({game_started: false});
-    this.setState({games_in_total: this.state.games_in_total + 1});
+    }
+    this.setState({game_started: false, games_in_total: this.state.games_in_total + 1, game_just_finished: true, last_game_user_won: user_won});
+    // this.setState({games_in_total: this.state.games_in_total + 1});
+    // this.setState({game_just_finished: true});
+    // this.setState({last_game_user_won: 1});
   }
 
   onGameStart() {
@@ -57,6 +59,10 @@ class GameWrapper extends React.Component {
 
   hideNem() {
     this.setState({ not_enough: false });
+  }
+
+  hideResultPopup() {
+    this.setState({ game_just_finished: false });
   }
 
   render() {
@@ -85,16 +91,38 @@ class GameWrapper extends React.Component {
     }
     return (
       <main>
-      <Modal size="sm" show={this.state.not_enough} onHide={() => {this.hideNem()}} aria-labelledby="example-modal-sizes-title-sm">
+
+      <Modal size="sm" 
+          show={this.state.not_enough}
+          onHide={() => {this.hideNem()}}
+          aria-labelledby="not-enough-money"
+          centered>
         <Modal.Header closeButton>
-          <Modal.Title id="example-modal-sizes-title-sm">
-            Не хватает денег! 
+          <Modal.Title id="not-enough-money-title">
+            <h3 class='w-100 modal-title text-center'> Не хватает денег! </h3>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           Выбери клик подешевле.
         </Modal.Body>
       </Modal>
+
+      <Modal size="sm" 
+          show={this.state.game_just_finished}
+          onHide={() => {this.hideResultPopup()}}
+          aria-labelledby="game-result"
+          centered>
+        <Modal.Header closeButton>
+          <Modal.Title id="game-result-title" >
+            <h3 class="modal-title" style="margin: 0 auto;"> {this.state.last_game_user_won ?  "Победа!" :"Поражение!"} </h3>
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Noch einmal?
+        </Modal.Body>
+      </Modal>
+
+
       	<br/>
       	<br/>
         <Nav className="justify-content-center" justify="true">
