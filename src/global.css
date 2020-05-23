@@ -4,3 +4,6 @@
 .footer-main {
   height: 50px;
 }
+.modal.fade.in {
+  top: 5%;
+}
