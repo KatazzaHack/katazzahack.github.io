@@ -56,7 +56,7 @@ class GameWrapper extends React.Component {
   }
 
   hideNem() {
-    this.setState({ show: false });
+    this.setState({ not_enough: false });
   }
 
   render() {
