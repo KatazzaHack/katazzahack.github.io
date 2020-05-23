@@ -1,6 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 import Game from './Game';
@@ -54,8 +55,14 @@ class GameWrapper extends React.Component {
       this.current_game.current.onClickTypeChanged(new_click_type);
   }
 
-  onGameReset() {
+  onGameRestart() {
     console.log("game reset");
+    this.onGameEnd();
+    this.onGameStart();
+    this.current_game.current.onGameRestart();
+  }
+
+  onGameReset() {
     this.onGameEnd();
     this.onGameStart();
     this.current_game.current.onGameReset();
@@ -89,9 +96,14 @@ class GameWrapper extends React.Component {
     } else {
       game_content = 
         <div>
-          <Button onClick={() => this.onGameReset()}>
-            Начну сначала
-          </Button>
+          <ButtonGroup size="sm">
+            <Button onClick={() => this.onGameReset()}>
+              Сбросить уровень
+            </Button>
+            <Button onClick={() => this.onGameRestart()}>
+              Начну новый уровень
+            </Button>
+          </ButtonGroup>
           <br/>
           <Game
             ref={this.current_game} 

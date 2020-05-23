@@ -68,7 +68,7 @@ function Graph(onBudgetChange, onGameEnd, onNotEnough) {
 Graph.prototype.get_new_network = function () {
   // this.lifes = [1, 1, 2, 0, 1, 1, 1, 2, 3];
   // var edges_got = [[0, 2], [1, 3], [1, 4], [1, 5] , [1, 8], [4, 7],  [7, 8]];
-  let n_size = Math.floor(Math.random() * 20) + 7;
+  let n_size = Math.floor(Math.random() * 30) + 7;
   let g_type = ["tree", "random", "circle"][Math.floor(Math.random() * 3)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
   let generated_puzzle = generate_puzzle(n_size, g_type, f_type);
