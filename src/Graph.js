@@ -1,6 +1,17 @@
 import { DataSet } from "vis-data/peer/esm/vis-data";
 import { Network } from "vis-network/peer/esm/vis-network";
-import images from "./images"; 
+
+import vir1 from "./images/vir1.png"; 
+import vir2 from "./images/vir2.png"; 
+import vir3 from "./images/vir3.png"; 
+
+import mask1 from "./images/mask1.png"; 
+import mask2 from "./images/mask2.png"; 
+import mask3 from "./images/mask3.png"; 
+
+import nomask1 from "./images/nomask1.png"; 
+import nomask2 from "./images/nomask2.png"; 
+import nomask3 from "./images/nomask3.png"; 
 
 
 function Graph() {
@@ -37,15 +48,15 @@ function Graph() {
   this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   this.take_image = {
-3: {0: this.img_dir + "mask1.png",
-    1: this.img_dir + "mask2.png",
-    2: this.img_dir + "mask3.png"},
-2: {0: this.img_dir + "nomask1.png",
-    1: this.img_dir + "nomask2.png",
-    2: this.img_dir + "nomask3.png"},
-1: {0: {images}["vir1"],
-    1: this.img_dir + "vir2.png",
-    2: this.img_dir + "vir3.png"}};
+3: {0: {mask1}["mask1"],
+    1: {mask2}["mask2"],
+    2: {mask3}["mask3"]},
+2: {0: {nomask1}["nomask1"],
+    1: {nomask2}["nomask2"],
+    2: {nomask3}["nomask3"]},
+1: {0: {vir1}["vir1"],
+    1: {vir2}["vir2"],
+    2: {vir3}["vir3"]}};
 
 }
 
@@ -216,7 +227,7 @@ Graph.prototype.settwo = function () {
   this.set_click_type(2);
 }
 
-// q = new Graph();
+//q = new Graph();
 // q.start();
 
 
