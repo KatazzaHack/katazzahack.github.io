@@ -78,7 +78,7 @@ class GameWrapper extends React.Component {
       	<br/>
         <Nav className="justify-content-center" justify="true">
           <Nav.Item>
-             <Stats stats={this.state.wins, this.state.games_in_total}/>
+             <Stats wins={this.state.wins} games_in_total={this.state.games_in_total}/>
           </Nav.Item>
           <Nav.Item>
           	<CurrentBudget budget={this.state.budget}/>
