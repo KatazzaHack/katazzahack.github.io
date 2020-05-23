@@ -14,9 +14,9 @@ import nomask2 from "./images/nomask2.png";
 import nomask3 from "./images/nomask3.png"; 
 
 
-function Graph(onGameEnd) {
+function Graph(onBudgetChange, onGameEnd) {
   this.on_game_end = onGameEnd;
-  this.on_game_end(true);
+  this.on_budget_change = onBudgetChange;
   var data = new DataSet({});
   this.nodes = new DataSet({});
   this.edges = new DataSet({});
@@ -86,6 +86,7 @@ Graph.prototype.get_new_network = function () {
       this.matrix[edges_got[i][1]].push(edges_got[i][0]);
     }
   }
+  this.on_budget_change(this.budget);
 };
 
 Graph.prototype.draw_network = function () {
@@ -102,12 +103,8 @@ Graph.prototype.draw_network = function () {
     nodes: this.nodes,
     edges: this.edges
   };
- // dirty_hack_with_canvas();
- // var can = document.getElementsByTagName("canvas")[0];
- // this.options.width = can.width;
   this.options.height = Math.floor(window.screen.height * 0.5).toString();
   this.network = new Network(this.container, data, this.options);
-  //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
 }
 
 Graph.prototype.set_click_type = function (click_type) {
@@ -150,8 +147,7 @@ Graph.prototype.on_click = function (event) {
   this.redraw_network();
   this.budget = this.budget - this.prices[this.click_type];
   this.check_if_game_end();
-  //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
-  
+  this.on_budget_change(this.budget);
 }
 
 Graph.prototype.check_if_game_end = function () {
@@ -159,8 +155,17 @@ Graph.prototype.check_if_game_end = function () {
   for (let i = 0; i < this.network_size; ++i) {
     if (this.lifes[i] != 0) {
       someone_is_alive = true;
+      break;
     }
   }
+  if (!someone_is_alive) {
+    this.on_game_end(/* user_won =*/ true);
+  } else {
+    if (this.budget < 100) {
+      this.on_game_end(/* user_won =*/ false);
+    }
+  }
+  
 }
 
 Graph.prototype.decrease_life = function (nodes_to_decrease) {
