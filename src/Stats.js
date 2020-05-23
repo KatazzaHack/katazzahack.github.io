@@ -15,7 +15,7 @@ class Stats extends React.Component {
       if (Array(2, 3, 4).includes(this.props.games_in_total % 10)) {
         return <div id="stats_id"> Сыграно {this.props.games_in_total} игры, но человечество всегда выживало. </div>;
       } else {
-        if (this.props.games_in_total == 1) return <div id="stats_id"> Сыграна одна игра, но человечество выживало. </div>;
+        if (this.props.games_in_total == 1) return <div id="stats_id"> Сыграна одна игра, в ней человечество выжило. </div>;
         return <div id="stats_id"> Сыграно {this.props.games_in_total} игр, но человечество всегда выживало. </div>;
       }
 
