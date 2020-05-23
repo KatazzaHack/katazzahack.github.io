@@ -14,10 +14,10 @@ import nomask2 from "./images/nomask2.png";
 import nomask3 from "./images/nomask3.png"; 
 
 
-function Graph(onBudgetChange, onGameEnd) {
+function Graph(onBudgetChange, onGameEnd, onNotEnough) {
   this.on_game_end = onGameEnd;
   this.on_budget_change = onBudgetChange;
-  // this.on_not_enough = onNotEnough;
+  this.on_not_enough = onNotEnough;
   var data = new DataSet({});
   this.nodes = new DataSet({});
   this.edges = new DataSet({});
@@ -120,8 +120,8 @@ Graph.prototype.on_click = function (event) {
   var selected_node = event.nodes[0] - 1; // effect +- 1
   console.log("Selected node: " + selected_node);
   if (this.budget < this.prices[this.click_type]) {
-    // this.on_not_enough();
-    alert("мало денег");
+    this.on_not_enough();
+    // alert("мало денег");
     return 1;
   }
   if (!(Array(0, 1, 2).includes(this.click_type))) {

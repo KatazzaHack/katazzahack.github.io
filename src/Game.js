@@ -26,7 +26,7 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    this.graph = new Graph(this.props.onBudgetChanged, this.props.onGameEnd);
+    this.graph = new Graph(this.props.onBudgetChanged, this.props.onGameEnd, this.props.onNotEnough);
     this.graph.start();
     this.graph.set_click_type(this.current_click_type);
   }

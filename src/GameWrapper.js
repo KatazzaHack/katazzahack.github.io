@@ -1,12 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Button from 'react-bootstrap/Button';
+import Modal from 'react-bootstrap/Modal';
 import Nav from 'react-bootstrap/Nav';
 import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
 import CurrentBudget from './CurrentBudget';
 import Stats from './Stats';
-import NEM from './NotEnoughMoney';
 
 class GameWrapper extends React.Component {
   constructor(props) {
@@ -16,6 +16,7 @@ class GameWrapper extends React.Component {
       budget: 0,
       wins: 0,
       games_in_total: 0,
+      not_enough: false,
     };
     this.game_result = "";
     this.click_type = 0;
@@ -50,6 +51,14 @@ class GameWrapper extends React.Component {
       this.current_game.current.onClickTypeChanged(new_click_type);
   }
 
+  onNotEnough() {
+    this.setState({not_enough: true});
+  }
+
+  hideNem() {
+    this.setState({ show: false });
+  }
+
   render() {
     console.log("rerendering");
     let game_content;
@@ -69,13 +78,23 @@ class GameWrapper extends React.Component {
           ref={this.current_game} 
           onBudgetChanged={this.onBudgetChanged.bind(this)}
           onGameEnd={this.onGameEnd.bind(this)}
+          onNotEnough={this.onNotEnough.bind(this)}
           initial_click_type={this.click_type}
         >
         </Game>;
     }
     return (
       <main>
-        <NEM />
+      <Modal size="sm" show={this.state.not_enough} onHide={() => {this.hideNem()}} aria-labelledby="example-modal-sizes-title-sm">
+        <Modal.Header closeButton>
+          <Modal.Title id="example-modal-sizes-title-sm">
+            Не хватает денег! 
+          </Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Выбери клик подешевле.
+        </Modal.Body>
+      </Modal>
       	<br/>
       	<br/>
         <Nav className="justify-content-center" justify="true">
