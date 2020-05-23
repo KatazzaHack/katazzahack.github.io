@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Nav from 'react-bootstrap/Nav';
 import Game from './Game';
 import ClickTypeButtons from './ClickTypeButtons';
+import CurrentBudget from './CurrentBudget';
+import Stats from './Stats';
 
 class GameWrapper extends React.Component {
   constructor(props) {
@@ -52,10 +54,10 @@ class GameWrapper extends React.Component {
       	<br/>
         <Nav className="justify-content-center" justify="true">
           <Nav.Item>
-              <div id="stats_id"> Статистика </div>
+             <Stats />
           </Nav.Item>
           <Nav.Item>
-            <div id="budget_id">{this.state.budget}</div>
+          	<CurrentBudget budget={this.state.budget}/>
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons/>
