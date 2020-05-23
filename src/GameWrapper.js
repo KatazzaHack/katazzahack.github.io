@@ -12,6 +12,7 @@ class GameWrapper extends React.Component {
     super(props);
     this.state = {
       game_started: false,
+      budget: 0,
     };
     this.game_result = "";
   }
@@ -30,17 +31,30 @@ class GameWrapper extends React.Component {
     this.setState({game_started: true});
   }
 
+  onBudgetChanged(new_budget) {
+    console.log("budget changed");
+    this.setState({budget: new_budget});
+  } 
+
   render() {
     let game_content;
     if (!this.state.game_started) {
       game_content = 
         <div>
           <div>{this.game_result}</div>
-          <Button onClick={() => this.onGameStart()}> Начни заражать всех </Button>
+          <Button 
+            onClick={() => this.onGameStart()}
+          > 
+            Начни заражать всех 
+          </Button>
         </div>
     } else {
       game_content = 
-        <Game onGameEnd={this.onGameEnd.bind(this)}></Game>; 
+        <Game 
+          onBudgetChanged={this.onBudgetChanged.bind(this)}
+          onGameEnd={this.onGameEnd.bind(this)}
+        >
+        </Game>; 
     }
     return (
       <main>
@@ -51,7 +65,7 @@ class GameWrapper extends React.Component {
              <Stats />
           </Nav.Item>
           <Nav.Item>
-          	<CurrentBudget />
+          	<CurrentBudget budget={this.state.budget}/>
           </Nav.Item>
           <Nav.Item>
             <ClickTypeButtons/>

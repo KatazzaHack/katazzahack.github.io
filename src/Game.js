@@ -19,7 +19,7 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    this.graph = new Graph(this.props.onGameEnd);
+    this.graph = new Graph(this.props.onBudgetChanged, this.props.onGameEnd);
     this.graph.start();
   }
 }
