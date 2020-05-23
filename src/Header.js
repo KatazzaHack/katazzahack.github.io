@@ -20,11 +20,11 @@ class Header extends React.Component {
         			aria-controls="example-collapse-text"
         			aria-expanded={this.state.open}
       			>
-        			Rules
+        			Правила
       			</Button>
       			<Collapse in={this.state.open}>
         			<div id="example-collapse-text">
-          				Rules will be here.
+          				Жмякай, чтобы заражать. Есть разные виды заражений. Уничтож всех людей и уложись в бюджет.
         			</div>
       			</Collapse>
 			</header>
