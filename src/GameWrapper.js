@@ -13,17 +13,21 @@ class GameWrapper extends React.Component {
     this.state = {
       game_started: false,
       budget: 0,
+      wins: 0,
+      games_in_total: 0,
     };
     this.game_result = "";
   }
   
   onGameEnd(user_won) {
     console.log("game finished, user won: " + user_won);
-    if (user_won)
+    if (user_won) {
       this.game_result = "YOU WON!";
-    else
+      this.setState({wins: this.state.wins + 1});
+    } else
       this.game_result = "YOU LOST!";
     this.setState({game_started: false});
+    this.setState({games_in_total: this.state.games_in_total + 1});
   }
 
   onGameStart() {
@@ -62,7 +66,7 @@ class GameWrapper extends React.Component {
       	<br/>
         <Nav className="justify-content-center" justify="true">
           <Nav.Item>
-             <Stats />
+             <Stats stats={this.state.wins, this.state.games_in_total}/>
           </Nav.Item>
           <Nav.Item>
           	<CurrentBudget budget={this.state.budget}/>
