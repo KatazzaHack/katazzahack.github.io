@@ -105,7 +105,7 @@ class GameWrapper extends React.Component {
     return (
       <main>
 
-      <Modal size="sm" 
+      <Modal class="modal fade modal-fullscreen" size="sm" 
           show={this.state.not_enough}
           onHide={() => {this.hideNem()}}
           aria-labelledby="not-enough-money"
@@ -120,7 +120,7 @@ class GameWrapper extends React.Component {
         </Modal.Body>
       </Modal>
 
-      <Modal size="sm" 
+      <Modal class="modal fade modal-fullscreen" size="sm" 
           show={this.state.game_just_finished}
           onHide={() => {this.hideResultPopup()}}
           aria-labelledby="game-result"
@@ -130,9 +130,12 @@ class GameWrapper extends React.Component {
             <h3 class="modal-title"> {this.state.last_game_user_won ?  "Победа!" :"Поражение!"} </h3>
           </Modal.Title>
         </Modal.Header>
-        <Modal.Body>
-          Noch einmal?
+        <Modal.Body class="center">
+          <Button variant="primary" onClick={() => {this.onGameReset()}}>
+            Ещё разок
+          </Button>
         </Modal.Body>
+ 
       </Modal>
 
 
