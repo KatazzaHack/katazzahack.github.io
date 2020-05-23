@@ -12,15 +12,15 @@ class Stats extends React.Component {
 
   render() {
     if (this.state.games_in_total == 0) {
-       return <div id="stats_id"> </div>;
+       return <div id="stats_id"> Начни уже играть! </div>;
     }
     if (Array(2, 3, 4).includes(this.state.wins % 10)) {
       return <div id="stats_id"> 
-        Ты победил {this.state.wins} раз из {this.state.games_in_total}.
+        Все умерли {this.state.wins} раз из {this.state.games_in_total}.
       </div>;
     }
     return <div id="stats_id"> 
-      Ты победил {this.state.wins} раз из {this.state.games_in_total}.
+      Все умерли {this.state.wins} раз из {this.state.games_in_total}.
     </div>;
   }
 }
