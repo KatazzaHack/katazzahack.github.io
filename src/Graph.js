@@ -112,8 +112,6 @@ Graph.prototype.set_click_type = function (click_type) {
 }
 
 Graph.prototype.on_click = function (event) {
-  // TODO() remove this after communications with Game will be established
-  this.click_type = 2;
   if (event.nodes.length == 0) {
     return;
   }
@@ -121,11 +119,11 @@ Graph.prototype.on_click = function (event) {
   var selected_node = event.nodes[0] - 1; // effect +- 1
   console.log("Selected node: " + selected_node);
   if (this.budget < this.prices[this.click_type]) {
-    alert("Not enough money");
+    alert("У тебя не хватает денег!");
     return 1;
   }
   if (!(this.click_type in [0, 1, 2])) {
-    alert("Please select a click type");
+    alert("Пожалуйста, выбери тип клика");
     return 1;
   }
   var nodes_to_decrease = new Array();
