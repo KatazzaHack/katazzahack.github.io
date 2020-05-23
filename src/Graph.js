@@ -73,7 +73,7 @@ Graph.prototype.get_new_network = function () {
   // var edges_got = [[0, 2], [1, 3], [1, 4], [1, 5] , [1, 8], [4, 7],  [7, 8]];
   let n_size = Math.floor(Math.random() * 30) + 7;
   let g_type = ["tree", "random", "circle"][Math.floor(Math.random() * 3)];
-  let f_type = ["equal", "random", "onebig"][Math.floor(Math.random() * 3)];
+  let f_type = ["equal", "random", "onebig", "hardcore"][Math.floor(Math.random() * 4)];
   let generated_puzzle = generate_puzzle(n_size, g_type, f_type);
   this.budget = generated_puzzle.budget;
   this.lifes = JSON.parse(JSON.stringify(generated_puzzle.lifes));
@@ -336,18 +336,14 @@ function generate_circle_puzzle(n) {
 }
 
 function generate_random_puzzle(n) {
-  if (n < 9) {
-    return generate_circle_puzzle(n);
-  }
   let gr = generate_tree_puzzle(n);
-  for (let i = 0; i < n;) {
+  for (let i = 0; i < n; i++) {
     let a_node = Math.floor(Math.random() * n);
-    let b_node = Math.floor(Math.random() * n);
-    if (gr[a_node][b_node] == 0) {
-      gr[a_node][b_node] = 1;
-      gr[b_node][a_node] = 1;
-      i++;
+    if (a_node === i) {
+      continue;
     }
+    gr[a_node][i] = 1;
+    gr[i][a_node] = 1;
   }
   return gr;
 }
@@ -367,6 +363,14 @@ function generate_random_lifes(n) {
   let a = new Array(n).fill(0);
   for (let i = 0; i < n; i++) {
     a[i] = Math.floor((Math.random() * 3) + 1);
+  }
+  return a;
+}
+
+function generate_hardcore_lifes(n) {
+  let a = new Array(n).fill(0);
+  for (let i = 0; i < n; i++) {
+    a[i] = i % 3 + 1;
   }
   return a;
 }
@@ -401,6 +405,9 @@ function generate_puzzle(n, g_type, l_type) {
   }
   let lifes_f;
   switch(l_type) {
+  case "hardcore":
+    lifes_f = generate_hardcore_lifes;
+    break;
   case "equal":
     lifes_f = generate_equal_lifes;
     break;
@@ -414,13 +421,34 @@ function generate_puzzle(n, g_type, l_type) {
   return solve_puzzle(new Puzzle(graph_f(n), lifes_f(n), n, g_type, l_type));
 }
 
+
+ function detectMob() {
+    const toMatch = [
+        /Android/i,
+        /webOS/i,
+        /iPhone/i,
+        /iPad/i,
+        /iPod/i,
+        /BlackBerry/i,
+        /Windows Phone/i
+    ];
+
+    return toMatch.some((toMatchItem) => {
+        return navigator.userAgent.match(toMatchItem);
+    });
+}
+
 function calculate_budget(puzzle) {
   let sum = 0;
   for (let i = 0; i < puzzle.size; i++) {
     sum = sum + puzzle.lifes[i] * 100;
   }
   var coef = [100, 200, 400];
-  for (let iteration = 0; iteration < 10000; iteration++) {
+  let it_step = 10000;
+  if (detectMob()) {
+    it_step = 2000;
+  }
+  for (let iteration = 0; iteration < it_step; iteration++) {
     let ng = JSON.parse(JSON.stringify(puzzle));
     let cs = 0;
     let ln = puzzle.size;
