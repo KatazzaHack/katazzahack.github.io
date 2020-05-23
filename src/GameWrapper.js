@@ -46,7 +46,8 @@ class GameWrapper extends React.Component {
   onClickTypeChanged(new_click_type) {
     console.log("type click changed");
     this.click_type = new_click_type;
-    this.current_game.current.onClickTypeChanged(new_click_type);
+    if (this.current_game.current)
+      this.current_game.current.onClickTypeChanged(new_click_type);
   }
 
   render() {
@@ -68,6 +69,7 @@ class GameWrapper extends React.Component {
           ref={this.current_game} 
           onBudgetChanged={this.onBudgetChanged.bind(this)}
           onGameEnd={this.onGameEnd.bind(this)}
+          initial_click_type={this.click_type}
         >
         </Game>;
     }
