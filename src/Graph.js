@@ -32,7 +32,7 @@ function Graph(onBudgetChange, onGameEnd) {
       borderWidth:4,
       size: 50,
       color: {
-        border: '#222222',
+        border: '#ffffff',
         background: '#666666'
       },
       font:{color:'#eeeeee'}
