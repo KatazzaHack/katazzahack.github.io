@@ -88,6 +88,12 @@ Graph.prototype.get_new_network = function () {
   }
 };
 
+function dirty_hack_with_canvas() {
+  var can = document.getElementsByTagName("canvas")[0];
+  can.width = Math.floor(window.screen.width * 0.3);
+  can.height = Math.floor(window.screen.height * 0.2);
+}
+
 Graph.prototype.draw_network = function () {
   for (let i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
@@ -102,7 +108,10 @@ Graph.prototype.draw_network = function () {
     nodes: this.nodes,
     edges: this.edges
   };
-
+ // dirty_hack_with_canvas();
+ // var can = document.getElementsByTagName("canvas")[0];
+ // this.options.width = can.width;
+  this.options.height = Math.floor(window.screen.height * 0.4);
   this.network = new Network(this.container, data, this.options);
   //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
 }
