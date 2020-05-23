@@ -12,7 +12,7 @@ class CurrentBudget extends React.Component {
       </div>;
     }
     return <div id="budget_id"> 
-      У тебя осталось: {this.props.budget}
+      У тебя осталось: {this.props.budget} рублей.
     </div>;
   }
 }
