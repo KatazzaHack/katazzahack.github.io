@@ -15,7 +15,7 @@ class Header extends React.Component {
 	render() {
 		return (
 			<header id="statheader">
-        <h1> Корона CK убивает </h1>
+        <h1> Корона заражает </h1>
 				<Button
         			onClick={() => this.setState({ open: !this.state.open })}
         			aria-controls="example-collapse-text"
