@@ -11,27 +11,34 @@ class GameWrapper extends React.Component {
     this.state = {
       game_started: false,
     };
+    this.game_result = "";
   }
   
-  onGameEnd() {
+  onGameEnd(user_won) {
+    console.log("game finished, user won: " + user_won);
+    if (user_won)
+      this.game_result = "YOU WON!";
+    else
+      this.game_result = "YOU LOST!";
     this.setState({game_started: false});
   }
 
   onGameStart() {
     console.log("game started");
     this.setState({game_started: true});
-    //this.graph = new Graph();
-    //this.graph.start();
   }
 
   render() {
     let game_content;
     if (!this.state.game_started) {
       game_content = 
-        <Button onClick={() => this.onGameStart()}> Начни заражать всех</Button>;
+        <div>
+          <div>{this.game_result}</div>
+          <Button onClick={() => this.onGameStart()}> Начни заражать всех </Button>
+        </div>
     } else {
       game_content = 
-        <Game onEnd={() => this.OnGameEnd()}></Game>; 
+        <Game onGameEnd={(user_won) => this.OnGameEnd(user_won)}></Game>; 
     }
     return (
       <main>
