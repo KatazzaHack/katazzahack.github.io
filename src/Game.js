@@ -8,7 +8,7 @@ class Game extends React.Component {
   }
 
   render() {
-    return <div id="game-container"> Game should be here </div>;
+    return <div id="game-container" onGameEnd="test"> Game should be here </div>;
   }
 
   componentDidMount() {
