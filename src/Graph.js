@@ -1,7 +1,7 @@
 import { DataSet } from "vis-data/peer/esm/vis-data";
 import { Network } from "vis-network/peer/esm/vis-network";
+import images from "./images"; 
 
-var vis = require("vis-network");
 
 function Graph() {
   var data = new DataSet({});
@@ -36,9 +36,6 @@ function Graph() {
   this.nodes_to_change = new Array();
   this.container = document.getElementById('game-container');
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
-  // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
-  // this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
-  this.img_dir = "%PUBLIC_URL%/source/images/";
   this.take_image = {
 3: {0: this.img_dir + "mask1.png",
     1: this.img_dir + "mask2.png",
@@ -46,7 +43,7 @@ function Graph() {
 2: {0: this.img_dir + "nomask1.png",
     1: this.img_dir + "nomask2.png",
     2: this.img_dir + "nomask3.png"},
-1: {0: this.img_dir + "vir1.png",
+1: {0: {images}["vir1"],
     1: this.img_dir + "vir2.png",
     2: this.img_dir + "vir3.png"}};
 
@@ -219,14 +216,9 @@ Graph.prototype.settwo = function () {
   this.set_click_type(2);
 }
 
-
-<<<<<<< HEAD:public/Graph.js
 // q = new Graph();
 // q.start();
-=======
- //q = new Graph();
- //q.start();
->>>>>>> c63818b6272eec3a5894422d2031dd7a4efd4711:src/Graph.js
+
 
 // generate clique puzzle
 function generate_clique_puzzle(n) {
