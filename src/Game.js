@@ -14,9 +14,13 @@ class Game extends React.Component {
     this.graph.set_click_type(new_click_type); 
   }
 
-  onGameReset() {
+  onGameRestart() {
     delete this.graph;
     this.createGraph();
+  }
+
+  onGameReset() {
+    this.graph.reset();
   }
 
   render() {
