@@ -51,6 +51,13 @@ class GameWrapper extends React.Component {
       this.current_game.current.onClickTypeChanged(new_click_type);
   }
 
+  onGameReset() {
+    console.log("game reset");
+    this.onGameEnd();
+    this.onGameStart();
+    this.current_game.current.onGameReset();
+  }
+
   onNotEnough() {
     this.setState({not_enough: true});
   }
@@ -74,14 +81,20 @@ class GameWrapper extends React.Component {
         </div>
     } else {
       game_content = 
-        <Game
-          ref={this.current_game} 
-          onBudgetChanged={this.onBudgetChanged.bind(this)}
-          onGameEnd={this.onGameEnd.bind(this)}
-          onNotEnough={this.onNotEnough.bind(this)}
-          initial_click_type={this.click_type}
-        >
-        </Game>;
+        <div>
+          <Button onClick={() => this.onGameReset()}>
+            Начну сначала
+          </Button>
+          <br/>
+          <Game
+            ref={this.current_game} 
+            onBudgetChanged={this.onBudgetChanged.bind(this)}
+            onGameEnd={this.onGameEnd.bind(this)}
+            onNotEnough={this.onNotEnough.bind(this)}
+            initial_click_type={this.click_type}
+          >
+          </Game>
+        </div>;
     }
     return (
       <main>

@@ -14,6 +14,11 @@ class Game extends React.Component {
     this.graph.set_click_type(new_click_type); 
   }
 
+  onGameReset() {
+    delete this.graph;
+    this.createGraph();
+  }
+
   render() {
     return <div 
       id="game-container" 
@@ -25,10 +30,14 @@ class Game extends React.Component {
     </div>;
   }
 
-  componentDidMount() {
+  createGraph() {
     this.graph = new Graph(this.props.onBudgetChanged, this.props.onGameEnd, this.props.onNotEnough);
     this.graph.start();
     this.graph.set_click_type(this.current_click_type);
+  }
+
+  componentDidMount() {
+    this.createGraph();
   }
 }
 
