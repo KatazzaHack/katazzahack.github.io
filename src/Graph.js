@@ -122,7 +122,7 @@ Graph.prototype.on_click = function (event) {
     alert("У тебя не хватает денег!");
     return 1;
   }
-  if (!(this.click_type in [0, 1, 2])) {
+  if (!(Array(0, 1, 2).includes(this.click_type))) {
     alert("Пожалуйста, выбери тип клика");
     return 1;
   }
