@@ -39,6 +39,7 @@ class GameWrapper extends React.Component {
   onGameStart() {
     console.log("game started");
     this.setState({game_started: true});
+    this.hideResultPopup();
   }
 
   onBudgetChanged(new_budget) {
@@ -131,7 +132,7 @@ class GameWrapper extends React.Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body class="center">
-          <Button variant="primary" onClick={() => {this.onGameReset()}}>
+          <Button variant="primary" onClick={() => {this.onGameStart()}}>
             Ещё разок
           </Button>
         </Modal.Body>

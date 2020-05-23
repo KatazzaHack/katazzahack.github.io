@@ -42,7 +42,8 @@ function Graph(onBudgetChange, onGameEnd, onNotEnough) {
       color: 'lightgray'
     },
     interaction: {
-      dragView: false
+      dragView: false,
+      zoomView: false,
     }
   };
   this.click_type = -1;
@@ -60,6 +61,7 @@ function Graph(onBudgetChange, onGameEnd, onNotEnough) {
 1: {0: {vir1}["vir1"],
     1: {vir2}["vir2"],
     2: {vir3}["vir3"]}};
+  this.saved = -1;
 
 }
 
@@ -82,12 +84,13 @@ Graph.prototype.get_new_network = function () {
     this.matrix.push(new Array());
   }
   for (let i = 0; i < edges_got.length; i++) {
-    if ((this.lifes[edges_got[i][0]] != 0) && (this.lifes[edges_got[i][1]] != 0)) {
-      this.matrix[edges_got[i][0]].push(edges_got[i][1]);
-      this.matrix[edges_got[i][1]].push(edges_got[i][0]);
+    if ((this.lifes[this.edges_list[i][0]] != 0) && (this.lifes[this.edges_list[i][1]] != 0)) {
+      this.matrix[this.edges_list[i][0]].push(this.edges_list[i][1]);
+      this.matrix[this.edges_list[i][1]].push(this.edges_list[i][0]);
     }
   }
   this.on_budget_change(this.budget);
+  this.saved = {'budget': this.budget, 'lifes': this.lifes.slice(), 'edges_list': this.edges_list.slice(), 'person_types': this.person_types.slice()}
 };
 
 Graph.prototype.draw_network = function () {
@@ -113,6 +116,34 @@ Graph.prototype.set_click_type = function (click_type) {
   this.click_type = click_type;
 }
 
+Graph.prototype.reset = function () {
+  if (saved == -1) {
+    alert("Что-то пошло не так и мы не сохранили твой прогресс :(");
+  }
+  this.budget = this.saved['budget'].slice();
+  this.lifes = this.saved['lifes'].slice();
+  this.edges_list = this.saved['edges_list'].slice();
+  this.person_types = this.saved['person_types'].slice();
+
+  this.matrix = new Array();
+  this.network_size = this.lifes.length;
+  for (let i = 0; i < this.network_size; ++i) {
+    this.person_types.push(Math.floor(Math.random() * 3));
+    this.matrix.push(new Array());
+  }
+  for (let i = 0; i < edges_got.length; i++) {
+    if ((this.lifes[this.edges_list[i][0]] != 0) && (this.lifes[this.edges_list[i][1]] != 0)) {
+      this.matrix[this.edges_list[i][0]].push(this.edges_list[i][1]);
+      this.matrix[this.edges_list[i][1]].push(this.edges_list[i][0]);
+    }
+  }
+  this.nodes = new DataSet({});
+  this.edges = new DataSet({});
+  this.on_budget_change(this.budget);
+  this.draw_network();
+  this.init_listeners();
+}
+
 Graph.prototype.on_click = function (event) {
   if (event.nodes.length == 0) {
     return;
@@ -122,7 +153,6 @@ Graph.prototype.on_click = function (event) {
   console.log("Selected node: " + selected_node);
   if (this.budget < this.prices[this.click_type]) {
     this.on_not_enough();
-    // alert("мало денег");
     return 1;
   }
   if (!(Array(0, 1, 2).includes(this.click_type))) {
