@@ -1,5 +1,6 @@
 import { DataSet } from "vis-data/peer/esm/vis-data";
 import { Network } from "vis-network/peer/esm/vis-network";
+import vir1 from "./images/vir1.png"; 
 
 var vis = require("vis-network");
 
@@ -38,7 +39,7 @@ function Graph() {
   this.take_color = {0: "black", 1: "red", 2: "yellow", 3: "green"};
   // this.img_dir = "%PUBLIC_URL%/sources/images/" https://github.com/KatazzaHack/katazzahack.github.io/blob/master/source/images/mask1.png?raw=true
   // this.img_dir = "https://raw.githubusercontent.com/KatazzaHack/katazzahack.github.io/master/source/images/";
-  this.img_dir = "public/source/images/";
+  this.img_dir = "src/images/";
   this.take_image = {
 3: {0: this.img_dir + "mask1.png",
     1: this.img_dir + "mask2.png",
@@ -46,7 +47,7 @@ function Graph() {
 2: {0: this.img_dir + "nomask1.png",
     1: this.img_dir + "nomask2.png",
     2: this.img_dir + "nomask3.png"},
-1: {0: this.img_dir + "vir1.png",
+1: {0: {vir1}["vir1"],
     1: this.img_dir + "vir2.png",
     2: this.img_dir + "vir3.png"}};
 
