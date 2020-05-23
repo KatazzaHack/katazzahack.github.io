@@ -38,6 +38,7 @@ function Graph(onBudgetChange, onGameEnd, onNotEnough) {
       },
       font:{color:'#eeeeee'}
     },
+    layout:{randomSeed: 333},
     edges: {
       color: 'lightgray'
     },
@@ -117,10 +118,10 @@ Graph.prototype.set_click_type = function (click_type) {
 }
 
 Graph.prototype.reset = function () {
-  if (saved == -1) {
+  if (this.saved == -1) {
     alert("Что-то пошло не так и мы не сохранили твой прогресс :(");
   }
-  this.budget = this.saved['budget'].slice();
+  this.budget = this.saved['budget'];
   this.lifes = this.saved['lifes'].slice();
   this.edges_list = this.saved['edges_list'].slice();
   this.person_types = this.saved['person_types'].slice();
@@ -131,7 +132,7 @@ Graph.prototype.reset = function () {
     this.person_types.push(Math.floor(Math.random() * 3));
     this.matrix.push(new Array());
   }
-  for (let i = 0; i < edges_got.length; i++) {
+  for (let i = 0; i < this.edges_list.length; i++) {
     if ((this.lifes[this.edges_list[i][0]] != 0) && (this.lifes[this.edges_list[i][1]] != 0)) {
       this.matrix[this.edges_list[i][0]].push(this.edges_list[i][1]);
       this.matrix[this.edges_list[i][1]].push(this.edges_list[i][0]);
