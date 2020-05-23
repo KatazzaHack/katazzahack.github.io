@@ -16,7 +16,7 @@ import nomask3 from "./images/nomask3.png";
 
 function Graph(onGameEnd) {
   this.on_game_end = onGameEnd;
-  // this.on_game_end();
+  this.on_game_end(true);
   var data = new DataSet({});
   this.nodes = new DataSet({});
   this.edges = new DataSet({});
