@@ -14,7 +14,9 @@ import nomask2 from "./images/nomask2.png";
 import nomask3 from "./images/nomask3.png"; 
 
 
-function Graph() {
+function Graph(onGameEnd) {
+  this.on_game_end = onGameEnd;
+  // this.on_game_end();
   var data = new DataSet({});
   this.nodes = new DataSet({});
   this.edges = new DataSet({});
@@ -66,16 +68,16 @@ Graph.prototype.get_new_network = function () {
   let n_size = Math.floor(Math.random() * 20) + 5;
   let g_type = ["tree", "random", "clique", "circle"][Math.floor(Math.random() * 4)];
   let f_type = ["unique", "random", "onebig"][Math.floor(Math.random() * 3)];
-  let gg = generate_puzzle(n_size, g_type, f_type);
-  this.budget = gg.budget;
-  this.lifes = JSON.parse(JSON.stringify(gg.lifes));
-  var edges_got = JSON.parse(JSON.stringify(gg.graph));
+  let generated_puzzle = generate_puzzle(n_size, g_type, f_type);
+  this.budget = generated_puzzle.budget;
+  this.lifes = JSON.parse(JSON.stringify(generated_puzzle.lifes));
+  var edges_got = JSON.parse(JSON.stringify(generated_puzzle.graph));
   this.edges_list = edges_got.slice();
-  this.types = new Array();
+  this.person_types = new Array();
   this.matrix = new Array();
   this.network_size = this.lifes.length;
   for (let i = 0; i < this.network_size; ++i) {
-    this.types.push(Math.floor(Math.random() * 3));
+    this.person_types.push(Math.floor(Math.random() * 3));
     this.matrix.push(new Array());
   }
   for (let i = 0; i < edges_got.length; i++) {
@@ -89,7 +91,7 @@ Graph.prototype.get_new_network = function () {
 Graph.prototype.draw_network = function () {
   for (let i = 0; i < this.network_size; i++) {
     if (this.lifes[i] != 0) {
-      this.nodes.add({id: i + 1, label: '', image: this.take_image[this.lifes[i]][this.types[i]], shape: 'circularImage',
+      this.nodes.add({id: i + 1, label: '', image: this.take_image[this.lifes[i]][this.person_types[i]], shape: 'circularImage',
       border: '1', borderWidthSelected: '10', color: this.take_color[this.lifes[i]]});
     }
   }
@@ -107,11 +109,6 @@ Graph.prototype.draw_network = function () {
 
 Graph.prototype.set_click_type = function (click_type) {
   this.click_type = click_type;
-}
-
-Graph.prototype.on_node_selected = function (event) {
-  var selected_node = event.nodes[0] - 1;
-  console.log(selected_node);
 }
 
 Graph.prototype.on_click = function (event) {
@@ -149,8 +146,18 @@ Graph.prototype.on_click = function (event) {
   this.decrease_life(nodes_to_decrease);
   this.redraw_network();
   this.budget = this.budget - this.prices[this.click_type];
+  this.check_if_game_end();
   //document.getElementById('stats_during_game').text = "Your current budget is:" + this.budget;
   
+}
+
+Graph.prototype.check_if_game_end = function () {
+  let someone_is_alive = false;
+  for (let i = 0; i < this.network_size; ++i) {
+    if (this.lifes[i] != 0) {
+      someone_is_alive = true;
+    }
+  }
 }
 
 Graph.prototype.decrease_life = function (nodes_to_decrease) {
@@ -180,7 +187,6 @@ Graph.prototype.decrease_life = function (nodes_to_decrease) {
       this.matrix[this.edges_list[i][1]].push(this.edges_list[i][0]);
     }
   }
-  
 }
 
 Graph.prototype.redraw_network = function () {
@@ -189,42 +195,20 @@ Graph.prototype.redraw_network = function () {
       if (this.lifes[i] == 0) {
         this.nodes.remove({id:i + 1});
       } else {
-        this.nodes.update([{id:i + 1, image: this.take_image[this.lifes[i]][this.types[i]], color: this.take_color[this.lifes[i]]}]);
+        this.nodes.update([{id:i + 1, image: this.take_image[this.lifes[i]][this.person_types[i]], color: this.take_color[this.lifes[i]]}]);
       }
     }
   }
 }
 
-Graph.prototype.add_public_notice = function () {
-  document.getElementById('public-notice').text = "Your current budget is:" + this.budget;
-}
-
-
 Graph.prototype.init_listeners = function () {
-  this.network.on("selectNode", this.on_node_selected);
   this.network.on("click", this.on_click.bind(this));
 }
 
-Graph.prototype.prepare = function () {
-  this.get_new_network();
-}
-
 Graph.prototype.start = function () {
-  this.prepare();
+  this.get_new_network();
   this.draw_network();
   this.init_listeners();
-  this.add_public_notice();
-}
-
-Graph.prototype.setzero = function () {
-  this.set_click_type(0);
-}
-
-Graph.prototype.setone = function () {
-  this.set_click_type(1);
-}
-Graph.prototype.settwo = function () {
-  this.set_click_type(2);
 }
 
 //q = new Graph();

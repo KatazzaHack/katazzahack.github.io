@@ -12,7 +12,7 @@ class Game extends React.Component {
   }
 
   componentDidMount() {
-    this.graph = new Graph();
+    this.graph = new Graph(function() {alert("blabla")});
     this.graph.start();
   }
 }
