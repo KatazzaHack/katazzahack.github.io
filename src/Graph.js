@@ -429,6 +429,21 @@ function calculate_budget(puzzle) {
           }
         }
       }
+      let fr = true;
+      for (let u of to_del) {
+        if (u !== v && ng.graph[u][v] === 0) {
+          fr = false;
+          break;
+        }
+      }
+      if (fr) {
+        cs -= coef[action];
+        if (to_del.size === 1) {
+          cs += 100;
+        } else {
+          cs += 200;
+        }
+      }
       for (let u of to_del) {
         ng.lifes[u]--;
         if (ng.lifes[u] === 0) {
